@@ -38,6 +38,13 @@ public class Partido {
         return numPartido;
     }
     
+    public int getEleitos() {
+        int eleitos = 0;
+        for (Candidato c : candidatos.values()) {
+            if (c.eleito()) eleitos++;
+        }
+        return eleitos;
+    }
 
     @Override
     public String toString() {

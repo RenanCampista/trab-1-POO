@@ -67,6 +67,10 @@ public class Candidato {
         return this.tipoDestinacaoVotos.equals("Válido");
     }
 
+    public boolean eleito() {
+        return this.statusCandidatura == SituacaoCandidato.ELEITO;
+    }
+
     public void adicionarVoto(int qtdVotos) {
         if (this.codSituacaoCandidato == 2 || this.codSituacaoCandidato == 16)
             this.qtdVotosNominal += qtdVotos;

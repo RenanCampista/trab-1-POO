@@ -6,8 +6,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import eleicao.Candidato;
 import eleicao.Partido;
-
-
 import java.util.HashMap;
 
 public class Entrada {
@@ -56,14 +54,14 @@ public class Entrada {
     public Entrada() {
     }
 
-    public HashMap<Integer, Partido> readCandidatos(String path, String arg) {
+    public HashMap<Integer, Partido> readCandidatos(String path, String opcao) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), Charset.forName("ISO-8859-1")))) {
             String line = br.readLine();
             line = br.readLine();
             while (line != null) {
                 String[] fields = line.split(";");
                 int codCargo = Integer.parseInt(fields[EntradaCandidato.CD_CARGO.getValue()].replace("\"", ""));
-                if (arg.equals("estadual") && codCargo == 7 || arg.equals("federal") && codCargo == 6) {
+                if (opcao.equals("estadual") && codCargo == 7 || opcao.equals("federal") && codCargo == 6) {
                     int codSituacaoCandidato = Integer.parseInt(fields[EntradaCandidato.CD_SITUACAO_CANDIDATO_TOT.getValue()].replace("\"", ""));
                     int numCandidato = Integer.parseInt(fields[EntradaCandidato.NR_CANDIDATO.getValue()].replace("\"", ""));
                     String nomeUrna = fields[EntradaCandidato.NM_URNA_CANDIDATO.getValue()].replace("\"", "");
@@ -87,9 +85,6 @@ public class Entrada {
                     }
 
                 }
-                /*
-                 * E com candidatura indeferida mas com votaçao para partido?
-                 */
                 line = br.readLine();
             }
         } catch (Exception e) {
@@ -111,11 +106,11 @@ public class Entrada {
 
                     if (numVotavel < 95 || numVotavel > 98) {
                         for (Partido p : partidos.values()) {
-                            if (p.contemCandidato(numVotavel)) {
+                            if (p.contemCandidato(numVotavel)) 
                                 p.adicionarVoto(numVotavel, qtdVotos);
-                            } else if (numVotavel == p.getNumPartido()) {
+                            else if (numVotavel == p.getNumPartido()) 
                                 p.adicionarVotoLegenda(qtdVotos);
-                            }
+                            
                         }
                     }
                 }
