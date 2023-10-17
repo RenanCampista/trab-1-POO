@@ -22,7 +22,7 @@ public class Partido {
     }
 
     public void adicionarVoto(int numVotavel, int qtdVotos) {
-        if (candidatos.get(numVotavel).temFederacao()) {
+        if (candidatos.get(numVotavel).temFederacao() && candidatos.get(numVotavel).votosLegenda()) {
             candidatos.get(numVotavel).adicionarVoto(qtdVotos);
             this.qtdVotosLegenda += qtdVotos;
         } else {
@@ -41,10 +41,11 @@ public class Partido {
 
     @Override
     public String toString() {
-        // for (Candidato c : candidatos.values()) {
-        //     out += c.toString() + "\n";
-        // }
-        return "Partido [numPartido=" + numPartido + ", siglaPartido=" + siglaPartido + ", qtdVotosLegenda=" + qtdVotosLegenda + "]\n";
+        String out = "";
+        for (Candidato c : candidatos.values()) {
+            out += c.toString() + "\n";
+        }
+        return out + "\n";
     }
 }
 

@@ -3,6 +3,15 @@ package eleicao;
 import java.util.Date;
 
 public class Candidato {
+   enum Genero {
+        MASCULINO, FEMININO
+    }
+
+    enum SituacaoCandidato {
+        ELEITO, NAO_ELEITO
+    }
+    
+
     private int codCargo;
     private int codSituacaoCandidato;
     private int numCandidato;
@@ -11,13 +20,13 @@ public class Candidato {
     private String siglaPartido;
     private int numFederacao;
     private Date dataNascimento;
-    private int codSituacaoCandidatura;
-    private int codGenero;
+    private SituacaoCandidato statusCandidatura;
+    private Genero codGenero;
     private String tipoDestinacaoVotos;
     private int qtdVotosNominal;
 
     public Candidato(int codCargo, int codSituacaoCandidato, int numCandidato, String nomeUrna,
-            int numPartido, String siglaPartido, int numFederacao, Date dataNascimento, int codSituacaoCandidatura,
+            int numPartido, String siglaPartido, int numFederacao, Date dataNascimento, int statusCandidatura,
             int codGenero, String tipoDestinacaoVotos) {
 
         this.codCargo = codCargo;
@@ -28,8 +37,16 @@ public class Candidato {
         this.siglaPartido = siglaPartido;
         this.numFederacao = numFederacao;
         this.dataNascimento = dataNascimento;
-        this.codSituacaoCandidatura = codSituacaoCandidatura;
-        this.codGenero = codGenero;
+        if (statusCandidatura == 2 || statusCandidatura == 3)
+            this.statusCandidatura = SituacaoCandidato.ELEITO;
+        else
+            this.statusCandidatura = SituacaoCandidato.NAO_ELEITO;
+        
+        if (codGenero == 2) 
+            this.codGenero = Genero.MASCULINO;
+        else if (codGenero == 4) 
+            this.codGenero = Genero.FEMININO;
+        
         this.tipoDestinacaoVotos = tipoDestinacaoVotos;
         this.qtdVotosNominal = 0;
     }
@@ -46,8 +63,13 @@ public class Candidato {
         return numFederacao != -1;
     }
 
+    public boolean votosLegenda() {
+        return this.tipoDestinacaoVotos.equals("Válido");
+    }
+
     public void adicionarVoto(int qtdVotos) {
-        this.qtdVotosNominal += qtdVotos;
+        if (this.codSituacaoCandidato == 2 || this.codSituacaoCandidato == 16)
+            this.qtdVotosNominal += qtdVotos;
     }
 
 
@@ -56,7 +78,7 @@ public class Candidato {
         return "Candidato [codCargo=" + codCargo + ", codSituacaoCandidato=" + codSituacaoCandidato + ", numCandidato="
                 + numCandidato + ", nomeUrna=" + nomeUrna + ", numPartido=" + numPartido + ", siglaPartido="
                 + siglaPartido + ", numFederacao=" + numFederacao + ", dataNascimento=" + dataNascimento
-                + ", codSituacaoCandidatura=" + codSituacaoCandidatura + ", codGenero=" + codGenero
+                + ", codSituacaoCandidatura=" + statusCandidatura + ", codGenero=" + codGenero
                 + ", tipoDestinacaoVotos=" + tipoDestinacaoVotos + "Votos" + qtdVotosNominal + "]";
     }
 

@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import eleicao.Candidato;
 import eleicao.Partido;
+
+
 import java.util.HashMap;
 
 public class Entrada {
@@ -69,12 +71,12 @@ public class Entrada {
                     String siglaPartido = fields[EntradaCandidato.SG_PARTIDO.getValue()].replace("\"", "");
                     int numFederacao = Integer.parseInt(fields[EntradaCandidato.NR_FEDERACAO.getValue()].replace("\"", ""));
                     Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(fields[EntradaCandidato.DT_NASCIMENTO.getValue()].replace("\"", ""));
-                    int codSituacaoCandidatura = Integer.parseInt(fields[EntradaCandidato.CD_SIT_TOT_TURNO.getValue()].replace("\"", ""));
+                    int statusCandidatura = Integer.parseInt(fields[EntradaCandidato.CD_SIT_TOT_TURNO.getValue()].replace("\"", ""));
                     int codGenero = Integer.parseInt(fields[EntradaCandidato.CD_GENERO.getValue()].replace("\"", ""));
                     String tipoDestinacaoVotos = fields[EntradaCandidato.NM_TIPO_DESTINACAO_VOTOS.getValue()].replace("\"", "");
 
                     Candidato candidato = new Candidato(codCargo, codSituacaoCandidato, numCandidato, nomeUrna, numPartido, siglaPartido, 
-                    numFederacao, dataNascimento, codSituacaoCandidatura, codGenero, tipoDestinacaoVotos);
+                    numFederacao, dataNascimento, statusCandidatura, codGenero, tipoDestinacaoVotos);
 
                     if (partidos.containsKey(numPartido)) {
                         partidos.get(numPartido).addCandidato(candidato);
