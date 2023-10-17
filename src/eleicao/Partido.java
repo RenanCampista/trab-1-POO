@@ -4,15 +4,13 @@ import java.util.HashMap;
 public class Partido {
     HashMap<Integer, Candidato> candidatos = new HashMap<>();
     int numPartido;
-
-
     String siglaPartido;
-    int qtdVotos;
+    int qtdVotosLegenda;
 
     public Partido(int numPartido, String siglaPartido) {
         this.numPartido = numPartido;
         this.siglaPartido = siglaPartido;
-        this.qtdVotos = 0;
+        this.qtdVotosLegenda = 0;
     }
 
     public void addCandidato(Candidato candidato) {
@@ -24,14 +22,30 @@ public class Partido {
     }
 
     public void adicionarVoto(int numVotavel, int qtdVotos) {
-        if (numVotavel != numPartido) {
+        if (candidatos.get(numVotavel).temFederacao()) {
+            candidatos.get(numVotavel).adicionarVoto(qtdVotos);
+            this.qtdVotosLegenda += qtdVotos;
+        } else {
             candidatos.get(numVotavel).adicionarVoto(qtdVotos);
         }
-        qtdVotos += qtdVotos;
+    }
+
+    public void adicionarVotoLegenda(int qtdVotos) {
+        this.qtdVotosLegenda += qtdVotos;
     }
 
     public int getNumPartido() {
         return numPartido;
+    }
+    
+
+    @Override
+    public String toString() {
+        String out = "Partido [numPartido=" + numPartido + ", siglaPartido=" + siglaPartido + ", qtdVotosLegenda=" + qtdVotosLegenda + "]\n";
+        for (Candidato c : candidatos.values()) {
+            out += c.toString() + "\n";
+        }
+        return out;
     }
 }
 
