@@ -14,6 +14,7 @@ public class Candidato {
     private int codSituacaoCandidatura;
     private int codGenero;
     private String tipoDestinacaoVotos;
+    private int qtdVotos;
 
     public Candidato(int codCargo, int codSituacaoCandidato, int numCandidato, String nomeUrna,
             int numPartido, String siglaPartido, int numFederacao, Date dataNascimento, int codSituacaoCandidatura,
@@ -30,12 +31,20 @@ public class Candidato {
         this.codSituacaoCandidatura = codSituacaoCandidatura;
         this.codGenero = codGenero;
         this.tipoDestinacaoVotos = tipoDestinacaoVotos;
+        this.qtdVotos = 0;
     }
 
     public int getNumCandidato() {
         return numCandidato;
     }
 
+    public int getNumPartido() {
+        return numPartido;
+    }
+
+    public void adicionarVoto(int qtdVotos) {
+        this.qtdVotos += qtdVotos;
+    }
 
     @Override
     public String toString() {
@@ -43,7 +52,7 @@ public class Candidato {
                 + numCandidato + ", nomeUrna=" + nomeUrna + ", numPartido=" + numPartido + ", siglaPartido="
                 + siglaPartido + ", numFederacao=" + numFederacao + ", dataNascimento=" + dataNascimento
                 + ", codSituacaoCandidatura=" + codSituacaoCandidatura + ", codGenero=" + codGenero
-                + ", tipoDestinacaoVotos=" + tipoDestinacaoVotos + "]";
+                + ", tipoDestinacaoVotos=" + tipoDestinacaoVotos + "Votos" + qtdVotos + "]";
     }
 
 

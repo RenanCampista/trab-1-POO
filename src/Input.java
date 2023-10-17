@@ -8,21 +8,50 @@ import eleicao.Partido;
 import java.util.HashMap;
 
 public class Input {
-    // Indices dos campos no arquivo csv dos candidatos
-    private static final int CD_CARGO = 13;
-    private static final int CD_SITUACAO_CANDIDATO_TOT = 68;
-    private static final int NR_CANDIDATO = 16;
-    private static final int NM_URNA_CANDIDATO = 18;
-    private static final int NR_PARTIDO = 27;
-    private static final int SG_PARTIDO = 28;
-    private static final int NR_FEDERACAO = 30;
-    private static final int DT_NASCIMENTO = 42;
-    private static final int CD_SIT_TOT_TURNO = 56;
-    private static final int CD_GENERO = 45;
-    private static final int NM_TIPO_DESTINACAO_VOTOS = 67;
     HashMap<Integer, Partido> partidos = new HashMap<>();
+    
+    public enum InputCandidato {
+        CD_CARGO(13),
+        CD_SITUACAO_CANDIDATO_TOT(68),
+        NR_CANDIDATO(16),
+        NM_URNA_CANDIDATO(18),
+        NR_PARTIDO(27),
+        SG_PARTIDO(28),
+        NR_FEDERACAO(30),
+        DT_NASCIMENTO(42),
+        CD_SIT_TOT_TURNO(56),
+        CD_GENERO(45),
+        NM_TIPO_DESTINACAO_VOTOS(67);
+    
+        private final int value;
+    
+        InputCandidato(int value) {
+            this.value = value;
+        }
+    
+        public int getValue() {
+            return value;
+        }
+    }
 
+    public enum InputVotacao {
+        CD_CARGO(17),
+        NR_VOTAVEL(19),
+        QT_VOTOS(21);
+    
+        private final int value;
+    
+        InputVotacao(int value) {
+            this.value = value;
+        }
+    
+        public int getValue() {
+            return value;
+        }
+    }
+    
     public Input() {
+    
     }
 
     public HashMap<Integer, Partido> readCandidatos(String path, String arg) {
@@ -31,23 +60,23 @@ public class Input {
             line = br.readLine();
             while (line != null) {
                 String[] fields = line.split(";");
-                int codCargo = Integer.parseInt(fields[CD_CARGO]);
+                int codCargo = Integer.parseInt(fields[InputCandidato.CD_CARGO.getValue()]);
                 if (arg.equals("estadual") && codCargo == 7 || arg.equals("federal") && codCargo == 6) {
-                    int codSituacaoCandidato = Integer.parseInt(fields[CD_SITUACAO_CANDIDATO_TOT]);
-                    int numCandidato = Integer.parseInt(fields[NR_CANDIDATO]);
-                    String nomeUrna = fields[NM_URNA_CANDIDATO];
-                    int numPartido = Integer.parseInt(fields[NR_PARTIDO]);
-                    String siglaPartido = fields[SG_PARTIDO];
-                    int numFederacao = Integer.parseInt(fields[NR_FEDERACAO]);
-                    Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(fields[DT_NASCIMENTO]);
-                    int codSituacaoCandidatura = Integer.parseInt(fields[CD_SIT_TOT_TURNO]);
-                    int codGenero = Integer.parseInt(fields[CD_GENERO]);
-                    String tipoDestinacaoVotos = fields[NM_TIPO_DESTINACAO_VOTOS];
+                    int codSituacaoCandidato = Integer.parseInt(fields[InputCandidato.CD_SITUACAO_CANDIDATO_TOT.getValue()]);
+                    int numCandidato = Integer.parseInt(fields[InputCandidato.NR_CANDIDATO.getValue()]);
+                    String nomeUrna = fields[InputCandidato.NM_URNA_CANDIDATO.getValue()];
+                    int numPartido = Integer.parseInt(fields[InputCandidato.NR_PARTIDO.getValue()]);
+                    String siglaPartido = fields[InputCandidato.SG_PARTIDO.getValue()];
+                    int numFederacao = Integer.parseInt(fields[InputCandidato.NR_FEDERACAO.getValue()]);
+                    Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(fields[InputCandidato.DT_NASCIMENTO.getValue()]);
+                    int codSituacaoCandidatura = Integer.parseInt(fields[InputCandidato.CD_SIT_TOT_TURNO.getValue()]);
+                    int codGenero = Integer.parseInt(fields[InputCandidato.CD_GENERO.getValue()]);
+                    String tipoDestinacaoVotos = fields[InputCandidato.NM_TIPO_DESTINACAO_VOTOS.getValue()];
                     
                     Candidato candidato = new Candidato(codCargo, codSituacaoCandidato, numCandidato, nomeUrna, numPartido, siglaPartido, 
                     numFederacao, dataNascimento, codSituacaoCandidatura, codGenero, tipoDestinacaoVotos);
                     
-                    if (partidos.containsKey(numPartido)) {
+                    if (partidos.containsKey(numPartido) || numFederacao == -1) {
                         partidos.get(numPartido).addCandidato(candidato);
                     } else {
                         Partido partido = new Partido(numPartido, siglaPartido);
@@ -56,6 +85,10 @@ public class Input {
                     }
 
                 }
+                /*
+                 * E os candidatos sem partido?
+                 * E com candidatura indeferida mas com votaçao para partido?
+                 */
                 line = br.readLine();
             }
         } catch (Exception e) {
@@ -70,12 +103,20 @@ public class Input {
             line = br.readLine();
             while (line != null) {
                 String[] fields = line.split(";");
-                int codCargo = Integer.parseInt(fields[CD_CARGO]);
-                if (arg.equals("estadual") && codCargo == 7 || arg.equals("federal") && codCargo == 6) {
-                    
+                int codCargo = Integer.parseInt(fields[InputVotacao.CD_CARGO.getValue()]);
+                if (arg.equals("estadual") && codCargo == 7  || arg.equals("federal") && codCargo == 6) {
+                    int numVotavel = Integer.parseInt(fields[InputVotacao.NR_VOTAVEL.getValue()]);
+                    int qtdVotos = Integer.parseInt(fields[InputVotacao.QT_VOTOS.getValue()]);
 
-
-
+                    if (numVotavel < 95 || numVotavel > 98) {
+                        for (Partido p : partidos.values()) {
+                            if (p.contemCandidato(numVotavel)) {
+                                p.adicionarVoto(numVotavel, qtdVotos);
+                            } else if (numVotavel == p.getNumPartido()) {
+                                p.adicionarVoto(numVotavel, qtdVotos);
+                            }
+                        }
+                    }
                 }
                 line = br.readLine();
             }
