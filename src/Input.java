@@ -86,7 +86,6 @@ public class Input {
 
                 }
                 /*
-                 * E os candidatos sem partido?
                  * E com candidatura indeferida mas com votaçao para partido?
                  */
                 line = br.readLine();
@@ -122,8 +121,7 @@ public class Input {
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
-        }
-       
+        } 
     }
 
 
