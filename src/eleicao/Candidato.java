@@ -32,6 +32,10 @@ public class Candidato {
         this.tipoDestinacaoVotos = tipoDestinacaoVotos;
     }
 
+    public int getNumCandidato() {
+        return numCandidato;
+    }
+
 
     @Override
     public String toString() {
@@ -41,5 +45,8 @@ public class Candidato {
                 + ", codSituacaoCandidatura=" + codSituacaoCandidatura + ", codGenero=" + codGenero
                 + ", tipoDestinacaoVotos=" + tipoDestinacaoVotos + "]";
     }
+
+
+
     
 }
