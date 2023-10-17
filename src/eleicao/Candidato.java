@@ -1,5 +1,4 @@
 package eleicao;
-
 import java.util.Date;
 
 public class Candidato {
@@ -59,6 +58,10 @@ public class Candidato {
         return numPartido;
     }
 
+    public int getQtdVotosNominal() {
+        return qtdVotosNominal;
+    }
+
     public boolean temFederacao() {
         return numFederacao != -1;
     }
@@ -79,14 +82,11 @@ public class Candidato {
 
     @Override
     public String toString() {
-        return "Candidato [codCargo=" + codCargo + ", codSituacaoCandidato=" + codSituacaoCandidato + ", numCandidato="
-                + numCandidato + ", nomeUrna=" + nomeUrna + ", numPartido=" + numPartido + ", siglaPartido="
-                + siglaPartido + ", numFederacao=" + numFederacao + ", dataNascimento=" + dataNascimento
-                + ", codSituacaoCandidatura=" + statusCandidatura + ", codGenero=" + codGenero
-                + ", tipoDestinacaoVotos=" + tipoDestinacaoVotos + "Votos" + qtdVotosNominal + "]";
+        return this.nomeUrna + "(" + this.siglaPartido + "," + this.qtdVotosNominal + ")\n";
     }
 
 
 
     
 }
+

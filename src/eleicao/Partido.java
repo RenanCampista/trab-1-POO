@@ -46,6 +46,10 @@ public class Partido {
         return eleitos;
     }
 
+    public HashMap<Integer, Candidato> getCandidatos() {
+        return new HashMap<Integer, Candidato>(candidatos);
+    }
+
     @Override
     public String toString() {
         String out = "";
