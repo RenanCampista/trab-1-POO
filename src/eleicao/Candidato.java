@@ -1,7 +1,11 @@
 package eleicao;
+import java.text.NumberFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Candidato {
+    Locale locale = new Locale.Builder().setLanguage("pt").setRegion("BR").build();
+    NumberFormat format = NumberFormat.getNumberInstance(locale);
    enum Genero {
         MASCULINO, FEMININO
     }
@@ -82,7 +86,11 @@ public class Candidato {
 
     @Override
     public String toString() {
-        return this.nomeUrna + "(" + this.siglaPartido + "," + this.qtdVotosNominal + ")\n";
+        String out = "";
+        if (this.temFederacao())
+            out += "*";
+        out += this.nomeUrna + "(" + this.siglaPartido + ", " + format.format(this.qtdVotosNominal) + " votos)";
+        return out;
     }
 
 

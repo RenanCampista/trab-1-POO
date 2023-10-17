@@ -106,11 +106,10 @@ public class Entrada {
 
                     if (numVotavel < 95 || numVotavel > 98) {
                         for (Partido p : partidos.values()) {
-                            if (p.contemCandidato(numVotavel)) 
+                            if (p.contemCandidato(numVotavel))
                                 p.adicionarVoto(numVotavel, qtdVotos);
                             else if (numVotavel == p.getNumPartido()) 
                                 p.adicionarVotoLegenda(qtdVotos);
-                            
                         }
                     }
                 }

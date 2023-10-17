@@ -7,7 +7,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         Entrada entrada = new Entrada();
         HashMap<Integer, Partido> partidos = new HashMap<>();
-        partidos = entrada.readCandidatos("C:\\Users\\renan\\OneDrive\\Área de Trabalho\\trab-1-POO\\src\\consulta_cand_2022_ES.csv", "federal");
+        partidos = entrada.readCandidatos("C:\\Users\\renan\\OneDrive\\Área de Trabalho\\trab-1-POO\\src\\consulta_cand_2022_ES.csv", "estadual");
         entrada.readVotacao("C:\\Users\\renan\\OneDrive\\Área de Trabalho\\trab-1-POO\\src\\votacao_secao_2022_ES.csv", "estadual", partidos);
 
         Relatorio relatorio = new Relatorio();

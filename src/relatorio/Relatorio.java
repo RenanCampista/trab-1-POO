@@ -1,15 +1,19 @@
 package relatorio;
 import java.util.Date;
 import java.util.HashMap;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import eleicao.Partido;
 import eleicao.Candidato;
+import java.util.Locale;
 
 public class Relatorio {
-    private Date dataEleicao;
 
+    
+    private Date dataEleicao;
+    
     public Relatorio() {
     }
 
@@ -55,6 +59,6 @@ public class Relatorio {
 class VotoNominalComparator implements Comparator<Candidato> {
     @Override
     public int compare(Candidato c1, Candidato c2) {
-        return c1.getQtdVotosNominal() - c2.getQtdVotosNominal();
+        return c2.getQtdVotosNominal() - c1.getQtdVotosNominal();
     }
 }
