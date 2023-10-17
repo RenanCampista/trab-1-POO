@@ -41,11 +41,10 @@ public class Partido {
 
     @Override
     public String toString() {
-        String out = "Partido [numPartido=" + numPartido + ", siglaPartido=" + siglaPartido + ", qtdVotosLegenda=" + qtdVotosLegenda + "]\n";
-        for (Candidato c : candidatos.values()) {
-            out += c.toString() + "\n";
-        }
-        return out;
+        // for (Candidato c : candidatos.values()) {
+        //     out += c.toString() + "\n";
+        // }
+        return "Partido [numPartido=" + numPartido + ", siglaPartido=" + siglaPartido + ", qtdVotosLegenda=" + qtdVotosLegenda + "]\n";
     }
 }
 

@@ -60,7 +60,7 @@ public class Entrada {
             line = br.readLine();
             while (line != null) {
                 String[] fields = line.split(";");
-                int codCargo = Integer.parseInt(fields[EntradaCandidato.CD_CARGO.getValue()]);
+                int codCargo = Integer.parseInt(fields[EntradaCandidato.CD_CARGO.getValue()].replace("\"", ""));
                 if (arg.equals("estadual") && codCargo == 7 || arg.equals("federal") && codCargo == 6) {
                     int codSituacaoCandidato = Integer.parseInt(fields[EntradaCandidato.CD_SITUACAO_CANDIDATO_TOT.getValue()].replace("\"", ""));
                     int numCandidato = Integer.parseInt(fields[EntradaCandidato.NR_CANDIDATO.getValue()].replace("\"", ""));
@@ -72,10 +72,10 @@ public class Entrada {
                     int codSituacaoCandidatura = Integer.parseInt(fields[EntradaCandidato.CD_SIT_TOT_TURNO.getValue()].replace("\"", ""));
                     int codGenero = Integer.parseInt(fields[EntradaCandidato.CD_GENERO.getValue()].replace("\"", ""));
                     String tipoDestinacaoVotos = fields[EntradaCandidato.NM_TIPO_DESTINACAO_VOTOS.getValue()].replace("\"", "");
-                    
+
                     Candidato candidato = new Candidato(codCargo, codSituacaoCandidato, numCandidato, nomeUrna, numPartido, siglaPartido, 
                     numFederacao, dataNascimento, codSituacaoCandidatura, codGenero, tipoDestinacaoVotos);
-                    
+
                     if (partidos.containsKey(numPartido)) {
                         partidos.get(numPartido).addCandidato(candidato);
                     } else {
@@ -96,7 +96,7 @@ public class Entrada {
         return new HashMap<Integer, Partido>(partidos);
     }
 
-    public void readVotacao(String path, String arg) {
+    public void readVotacao(String path, String arg, HashMap<Integer, Partido> partidos) {
          try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), Charset.forName("ISO-8859-1")))) {
             String line = br.readLine();
             line = br.readLine();
