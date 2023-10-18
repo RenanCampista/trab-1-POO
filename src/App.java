@@ -20,6 +20,14 @@ public class App {
         System.out.println("\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):");
         relatorio.candidatosMaisVotados(partidos);
 
+        System.out.println("\nTeriam sido eleitos se a votação fosse majoritária, e não foram eleitos:");
+        System.out.println("(com sua posição no ranking de mais votados)");
+        relatorio.teriamSidoEleitos(partidos);
+
+        System.out.println("\nEleitos, que se beneficiaram do sistema proporcional:");
+        System.out.println("(com sua posição no ranking de mais votados)");
+        relatorio.eleitosBeneficiadosSistemaProporcional(partidos);
+
         System.out.println("\nVotação dos partidos e número de candidatos eleitos:");
         relatorio.votosTotalizadosPorPartido(partidos);
 

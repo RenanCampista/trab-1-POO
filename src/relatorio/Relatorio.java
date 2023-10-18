@@ -60,6 +60,40 @@ public class Relatorio {
         }
     }
 
+    //Relatorio 4
+    public void teriamSidoEleitos(HashMap<Integer, Partido> partidos) {
+        ArrayList<Candidato> candidatos = new ArrayList<>();
+        for (Partido p : partidos.values()) {
+            for (Candidato c : p.getCandidatos().values()) 
+                if (c.getQtdVotosNominal() > 0) candidatos.add(c);     
+        }
+        
+        Collections.sort(candidatos, new VotoNominalComparator());
+
+        for (int i = 0; i < numeroEleitos(partidos); i++) {
+            if (!candidatos.get(i).eleito()) {
+                System.out.println(i+1 + " - " + candidatos.get(i));
+            }
+        }
+    }
+
+    //Relatorio 5
+    public void eleitosBeneficiadosSistemaProporcional(HashMap<Integer, Partido> partidos) {
+        ArrayList<Candidato> candidatos = new ArrayList<>();
+        for (Partido p : partidos.values()) {
+            for (Candidato c : p.getCandidatos().values()) 
+                if (c.eleito()) candidatos.add(c);     
+        }
+        
+        Collections.sort(candidatos, new VotoNominalComparator());
+
+        for (int i = numeroEleitos(partidos); i < candidatos.size() ; i++) {
+            if (candidatos.get(i).eleito()) {
+                System.out.println(i+1 + " - " + candidatos.get(i));
+            }
+        }
+    }
+
     //Relatorio 6
     public void votosTotalizadosPorPartido(HashMap<Integer, Partido> partidos) {
         ArrayList<Partido> partidosList = new ArrayList<>(partidos.values());
