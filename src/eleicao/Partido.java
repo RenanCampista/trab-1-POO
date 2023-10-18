@@ -22,12 +22,11 @@ public class Partido {
     }
 
     public void adicionarVotoCandidato(int numVotavel, int qtdVotos) {
-        if (candidatos.get(numVotavel).temFederacao() && candidatos.get(numVotavel).votosLegenda()) {
-            candidatos.get(numVotavel).adicionarVoto(qtdVotos);
+        if (candidatos.get(numVotavel).getTipoDestinacaoVotos().equals("Válido (legenda)"))
             this.qtdVotosLegenda += qtdVotos;
-        } else {
+        else
             candidatos.get(numVotavel).adicionarVoto(qtdVotos);
-        }
+        //Válido (legenda)
     }
 
     public void adicionarVotoLegenda(int qtdVotos) {
@@ -49,14 +48,14 @@ public class Partido {
     public int getVotosNominais() {
         int votos = 0;
         for (Candidato c : candidatos.values()) {
-            if (c.getCodSituacaoCandidato() == 2 || c.getCodSituacaoCandidato() == 16)
+            if (c.votosLegenda())
                 votos += c.getQtdVotosNominal();
         }
         return votos;
     }
 
     public int getVotosLegenda() {
-        return qtdVotosLegenda;
+        return this.qtdVotosLegenda;
     }
 
     public int getTotalVotos() {

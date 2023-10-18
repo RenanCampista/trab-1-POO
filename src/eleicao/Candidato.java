@@ -74,6 +74,10 @@ public class Candidato {
         return codGenero;
     }
 
+    public String getTipoDestinacaoVotos() {
+        return tipoDestinacaoVotos;
+    }
+
     public boolean temFederacao() {
         return numFederacao != -1;
     }
@@ -87,8 +91,7 @@ public class Candidato {
     }
 
     public void adicionarVoto(int qtdVotos) {
-        if (this.codSituacaoCandidato == 2 || this.codSituacaoCandidato == 16)
-            this.qtdVotosNominal += qtdVotos;
+        this.qtdVotosNominal += qtdVotos;
     }
 
 

@@ -1,6 +1,7 @@
 package relatorio;
 import java.util.Date;
 import java.util.HashMap;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,8 +12,12 @@ import eleicao.Candidato;
 import java.util.Locale;
 
 public class Relatorio {
-    Locale locale = new Locale.Builder().setLanguage("pt").setRegion("BR").build();
-    NumberFormat format = NumberFormat.getNumberInstance(locale);
+
+    private Locale locale = new Locale.Builder().setLanguage("pt").setRegion("BR").build();
+    private NumberFormat format = NumberFormat.getNumberInstance(locale);
+    {
+        format.setMaximumFractionDigits(2);
+    }
 
     private Date dataEleicao;
     

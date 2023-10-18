@@ -71,19 +71,23 @@ public class Entrada {
                 int statusCandidatura = Integer.parseInt(fields[EntradaCandidato.CD_SIT_TOT_TURNO.getValue()].replace("\"", ""));
                 int codGenero = Integer.parseInt(fields[EntradaCandidato.CD_GENERO.getValue()].replace("\"", ""));
                 String tipoDestinacaoVotos = fields[EntradaCandidato.NM_TIPO_DESTINACAO_VOTOS.getValue()].replace("\"", "");
-
                 Candidato candidato = new Candidato(codCargo, codSituacaoCandidato, numCandidato, nomeUrna, numPartido, siglaPartido, 
                 numFederacao, dataNascimento, statusCandidatura, codGenero, tipoDestinacaoVotos);
-
+         
                 if (partidos.containsKey(numPartido)) {
-                    if (opcao.equals("estadual") && codCargo == 7 || opcao.equals("federal") && codCargo == 6)
-                        partidos.get(numPartido).addCandidato(candidato);
+                    if ((opcao.equals("estadual") && codCargo == 7 || opcao.equals("federal") && codCargo == 6)) {
+                        if ((candidato.getCodSituacaoCandidato() == 2 || candidato.getCodSituacaoCandidato() == 16) || tipoDestinacaoVotos.equals("Válido (legenda)"))    
+                            partidos.get(numPartido).addCandidato(candidato);
+                    }
                 } else {
                     Partido partido = new Partido(numPartido, siglaPartido);
-                    if (opcao.equals("estadual") && codCargo == 7 || opcao.equals("federal") && codCargo == 6)    
-                        partido.addCandidato(candidato);
+                    if ((opcao.equals("estadual") && codCargo == 7 || opcao.equals("federal") && codCargo == 6)) {
+                        if ((candidato.getCodSituacaoCandidato() == 2 || candidato.getCodSituacaoCandidato() == 16) || tipoDestinacaoVotos.equals("Válido (legenda)"))    
+                            partido.addCandidato(candidato);
+                    }
                     partidos.put(numPartido, partido);
                 }
+                
 
                 line = br.readLine();
             }
@@ -94,7 +98,7 @@ public class Entrada {
     }
 
     public void readVotacao(String path, String arg, HashMap<Integer, Partido> partidos) {
-         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), Charset.forName("ISO-8859-1")))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), Charset.forName("ISO-8859-1")))) {
             String line = br.readLine();
             line = br.readLine();
             while (line != null) {
@@ -110,11 +114,14 @@ public class Entrada {
                                 p.adicionarVotoCandidato(numVotavel, qtdVotos);
                             else if (numVotavel == p.getNumPartido()) 
                                 p.adicionarVotoLegenda(qtdVotos);
+
+
                         }
                     }
                 }
                 line = br.readLine();
             }
+
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         } 
