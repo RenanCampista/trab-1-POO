@@ -61,30 +61,30 @@ public class Entrada {
             while (line != null) {
                 String[] fields = line.split(";");
                 int codCargo = Integer.parseInt(fields[EntradaCandidato.CD_CARGO.getValue()].replace("\"", ""));
-                if (opcao.equals("estadual") && codCargo == 7 || opcao.equals("federal") && codCargo == 6) {
-                    int codSituacaoCandidato = Integer.parseInt(fields[EntradaCandidato.CD_SITUACAO_CANDIDATO_TOT.getValue()].replace("\"", ""));
-                    int numCandidato = Integer.parseInt(fields[EntradaCandidato.NR_CANDIDATO.getValue()].replace("\"", ""));
-                    String nomeUrna = fields[EntradaCandidato.NM_URNA_CANDIDATO.getValue()].replace("\"", "");
-                    int numPartido = Integer.parseInt(fields[EntradaCandidato.NR_PARTIDO.getValue()].replace("\"", ""));
-                    String siglaPartido = fields[EntradaCandidato.SG_PARTIDO.getValue()].replace("\"", "");
-                    int numFederacao = Integer.parseInt(fields[EntradaCandidato.NR_FEDERACAO.getValue()].replace("\"", ""));
-                    Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(fields[EntradaCandidato.DT_NASCIMENTO.getValue()].replace("\"", ""));
-                    int statusCandidatura = Integer.parseInt(fields[EntradaCandidato.CD_SIT_TOT_TURNO.getValue()].replace("\"", ""));
-                    int codGenero = Integer.parseInt(fields[EntradaCandidato.CD_GENERO.getValue()].replace("\"", ""));
-                    String tipoDestinacaoVotos = fields[EntradaCandidato.NM_TIPO_DESTINACAO_VOTOS.getValue()].replace("\"", "");
+                int codSituacaoCandidato = Integer.parseInt(fields[EntradaCandidato.CD_SITUACAO_CANDIDATO_TOT.getValue()].replace("\"", ""));
+                int numCandidato = Integer.parseInt(fields[EntradaCandidato.NR_CANDIDATO.getValue()].replace("\"", ""));
+                String nomeUrna = fields[EntradaCandidato.NM_URNA_CANDIDATO.getValue()].replace("\"", "");
+                int numPartido = Integer.parseInt(fields[EntradaCandidato.NR_PARTIDO.getValue()].replace("\"", ""));
+                String siglaPartido = fields[EntradaCandidato.SG_PARTIDO.getValue()].replace("\"", "");
+                int numFederacao = Integer.parseInt(fields[EntradaCandidato.NR_FEDERACAO.getValue()].replace("\"", ""));
+                Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(fields[EntradaCandidato.DT_NASCIMENTO.getValue()].replace("\"", ""));
+                int statusCandidatura = Integer.parseInt(fields[EntradaCandidato.CD_SIT_TOT_TURNO.getValue()].replace("\"", ""));
+                int codGenero = Integer.parseInt(fields[EntradaCandidato.CD_GENERO.getValue()].replace("\"", ""));
+                String tipoDestinacaoVotos = fields[EntradaCandidato.NM_TIPO_DESTINACAO_VOTOS.getValue()].replace("\"", "");
 
-                    Candidato candidato = new Candidato(codCargo, codSituacaoCandidato, numCandidato, nomeUrna, numPartido, siglaPartido, 
-                    numFederacao, dataNascimento, statusCandidatura, codGenero, tipoDestinacaoVotos);
+                Candidato candidato = new Candidato(codCargo, codSituacaoCandidato, numCandidato, nomeUrna, numPartido, siglaPartido, 
+                numFederacao, dataNascimento, statusCandidatura, codGenero, tipoDestinacaoVotos);
 
-                    if (partidos.containsKey(numPartido)) {
+                if (partidos.containsKey(numPartido)) {
+                    if (opcao.equals("estadual") && codCargo == 7 || opcao.equals("federal") && codCargo == 6)
                         partidos.get(numPartido).addCandidato(candidato);
-                    } else {
-                        Partido partido = new Partido(numPartido, siglaPartido);
+                } else {
+                    Partido partido = new Partido(numPartido, siglaPartido);
+                    if (opcao.equals("estadual") && codCargo == 7 || opcao.equals("federal") && codCargo == 6)    
                         partido.addCandidato(candidato);
-                        partidos.put(numPartido, partido);
-                    }
-
+                    partidos.put(numPartido, partido);
                 }
+
                 line = br.readLine();
             }
         } catch (Exception e) {
