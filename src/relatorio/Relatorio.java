@@ -114,12 +114,18 @@ public class Relatorio {
 
     //Relatorio 7
     public void primeiroUltimoColocadosPartido(HashMap<Integer, Partido> partidos) {
-        ArrayList<Partido> partidosList = new ArrayList<>(partidos.values());
+        //Pegar somente os partidos que possuem candidatos associados
+        ArrayList<Partido> partidosList = new ArrayList<>();
+        for (Partido p : partidos.values()) {
+            if (p.temCandidato()) {
+                partidosList.add(p);
+            }
+        }
         Collections.sort(partidosList, new MaisVotadoComparator());
 
         int i = 1;
         for (Partido p : partidosList) {
-            System.out.println(i+1 + " - " + p.getSiglaPartido() + " - " + p.getNumPartido() + p.getCandidatoMaisVotado() + " / " + p.getCandidatoMenosVotado());
+            System.out.println(i + " - " + p.getSiglaPartido() + " - " + p.getNumPartido() + p.getCandidatoMaisVotado() + " / " + p.getCandidatoMenosVotado());
             i++;
         }
     }
@@ -215,8 +221,13 @@ class VotoPartidoComparator implements Comparator<Partido> {
 class MaisVotadoComparator implements Comparator<Partido> {
     @Override
     public int compare(Partido p1, Partido p2) {
-        int votosP1 = p1.getCandidatoMaisVotado().getQtdVotosNominal();
-        int votosP2 = p2.getCandidatoMaisVotado().getQtdVotosNominal();
+        Candidato c1 = p1.getCandidatoMaisVotado();
+        Candidato c2 = p2.getCandidatoMaisVotado();
+        if (c1 == null || c2 == null) return 0;
+
+        int votosP1 = c1.getQtdVotosNominal();
+        int votosP2 = c2.getQtdVotosNominal();
+
         if (votosP1 > votosP2) 
             return -1;
         else if (votosP1 == votosP2) 

@@ -21,6 +21,10 @@ public class Partido {
         return candidatos.containsKey(numCandidato);
     }
 
+    public boolean temCandidato() {
+        return !candidatos.isEmpty();
+    }
+
     public String getSiglaPartido() {
         return siglaPartido;
     }
