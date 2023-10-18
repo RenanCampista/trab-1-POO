@@ -21,7 +21,7 @@ public class Partido {
         return candidatos.containsKey(numCandidato);
     }
 
-    public void adicionarVoto(int numVotavel, int qtdVotos) {
+    public void adicionarVotoCandidato(int numVotavel, int qtdVotos) {
         if (candidatos.get(numVotavel).temFederacao() && candidatos.get(numVotavel).votosLegenda()) {
             candidatos.get(numVotavel).adicionarVoto(qtdVotos);
             this.qtdVotosLegenda += qtdVotos;
@@ -49,7 +49,8 @@ public class Partido {
     public int getVotosNominais() {
         int votos = 0;
         for (Candidato c : candidatos.values()) {
-            votos += c.getQtdVotosNominal();
+            if (c.getCodSituacaoCandidato() == 2 || c.getCodSituacaoCandidato() == 16)
+                votos += c.getQtdVotosNominal();
         }
         return votos;
     }

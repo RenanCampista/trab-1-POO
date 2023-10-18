@@ -82,7 +82,7 @@ public class Relatorio {
         ArrayList<Candidato> candidatos = new ArrayList<>();
         for (Partido p : partidos.values()) {
             for (Candidato c : p.getCandidatos().values()) 
-                if (c.eleito()) candidatos.add(c);     
+                candidatos.add(c);     
         }
         
         Collections.sort(candidatos, new VotoNominalComparator());
@@ -99,10 +99,12 @@ public class Relatorio {
         ArrayList<Partido> partidosList = new ArrayList<>(partidos.values());
         Collections.sort(partidosList, new VotoPartidoComparator());
         
+        int i = 1;
         for (Partido p : partidosList) {
-            System.out.println(p + ", " + format.format(p.getTotalVotos()) + " votos " + "(" + 
-                        format.format(p.getVotosNominais()) + "nominais e " + format.format(p.getVotosLegenda()) + " de legenda), " + 
+            System.out.println(i + " - " + p + ", " + format.format(p.getTotalVotos()) + " votos " + "(" + 
+                        format.format(p.getVotosNominais()) + " nominais e " + format.format(p.getVotosLegenda()) + " de legenda), " + 
                         format.format(p.getEleitos()) + " candidatos eleitos");
+            i++;
         }
     }
 
@@ -125,9 +127,9 @@ public class Relatorio {
             if (c.getCodGenero() == Genero.MASCULINO) eleitosMasculinos++;
             else eleitosFemininos++;
         }
-
-        System.out.println("Masculino: " + eleitosMasculinos + " (" + format.format((double) eleitosMasculinos / (eleitosFemininos + eleitosMasculinos) * 100) + "%)");
         System.out.println("Feminino: " + eleitosFemininos + " (" + format.format((double) eleitosFemininos / (eleitosFemininos + eleitosMasculinos) * 100) + "%)");
+        System.out.println("Masculino: " + eleitosMasculinos + " (" + format.format((double) eleitosMasculinos / (eleitosFemininos + eleitosMasculinos) * 100) + "%)\n");
+        
     }
 
     //Relatorio 10
@@ -138,9 +140,9 @@ public class Relatorio {
         for (Partido p : partidos.values()) {
             votosLegenda += p.getVotosLegenda();
             votosNominais += p.getVotosNominais();
-            votosValidos += votosLegenda + votosNominais;
         }
-        
+        votosValidos = votosLegenda + votosNominais;
+
         System.out.println("Total de votos válidos: " + format.format(votosValidos));
         System.out.println("Total de votos nominais: " + format.format(votosNominais) + " (" + format.format((double) votosNominais / votosValidos * 100) + "%)");
         System.out.println("Total de votos de legenda: " + format.format(votosLegenda) + " (" + format.format((double) votosLegenda / votosValidos * 100) + "%)");

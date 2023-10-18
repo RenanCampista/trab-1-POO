@@ -62,6 +62,10 @@ public class Candidato {
         return numPartido;
     }
 
+    public int getCodSituacaoCandidato() {
+        return codSituacaoCandidato;
+    }
+    
     public int getQtdVotosNominal() {
         return qtdVotosNominal;
     }

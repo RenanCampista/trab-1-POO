@@ -31,7 +31,7 @@ public class App {
         System.out.println("\nVotação dos partidos e número de candidatos eleitos:");
         relatorio.votosTotalizadosPorPartido(partidos);
 
-        System.out.println("Eleitos por gênero:");
+        System.out.println("\nEleitos por gênero:");
         relatorio.eleitosPorGenero(partidos);
 
         relatorio.totalVotosValidos(partidos);
