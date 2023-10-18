@@ -1,5 +1,7 @@
 package eleicao;
 import java.text.NumberFormat;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
 
@@ -60,6 +62,22 @@ public class Candidato {
 
     public int getNumPartido() {
         return numPartido;
+    }
+
+    public String getSiglaPartido() {
+        return siglaPartido;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public int getIdade(Date dataEleicao) {
+        int idade;
+        Period periodo = Period.between(this.getDataNascimento().toInstant().atZone(ZoneId.of("America/Sao_Paulo")).toLocalDate(), 
+                                        dataEleicao.toInstant().atZone(ZoneId.of("America/Sao_Paulo")).toLocalDate());
+        idade = periodo.getYears();
+        return idade;
     }
 
     public int getCodSituacaoCandidato() {

@@ -1,7 +1,6 @@
 package relatorio;
 import java.util.Date;
 import java.util.HashMap;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,12 +20,12 @@ public class Relatorio {
 
     private Date dataEleicao;
     
-    public Relatorio() {
-    }
-
-    // public Relatorio(Date dataEleicao) {
-    //     this.dataEleicao = dataEleicao;
+    // public Relatorio() {
     // }
+
+    public Relatorio(Date dataEleicao) {
+        this.dataEleicao = dataEleicao;
+    }
     
     //Relatorio 1
     public int numeroEleitos(HashMap<Integer, Partido> partidos) {
@@ -115,7 +114,57 @@ public class Relatorio {
 
     //Relatorio 7
     public void primeiroUltimoColocadosPartido(HashMap<Integer, Partido> partidos) {
-        ArrayList<Partido> partidosList = new ArrayList<>(partidos.values());
+        ArrayList<Candidato> candidatos = new ArrayList<>();
+        for (Partido p : partidos.values()) {
+            Candidato maisVotado = p.getCandidatoMaisVotado();
+            Candidato menosVotado = p.getCandidatoMenosVotado();
+            if (maisVotado != null) candidatos.add(maisVotado);
+            if (menosVotado != null) candidatos.add(menosVotado);
+
+        }
+        Collections.sort(candidatos, new VotoNominalComparator());
+
+        for (int i = 0; i < candidatos.size(); i++) {
+            System.out.print(i+1 + " - " + candidatos.get(i).getSiglaPartido() + " - " + candidatos.get(i).getNumPartido() + ", " + candidatos.get(i) + " / ");
+
+            for(int j = i+1; j < candidatos.size(); j++) {
+                if (candidatos.get(i).getNumPartido() == candidatos.get(j).getNumPartido()) {
+                    System.out.println(candidatos.get(j));
+                    break;
+                }
+            }
+        }
+    }
+
+    //Relatorio 8
+    public void eleitosPorFaixaEtaria(HashMap<Integer, Partido> partidos) {
+        int idade, eleitos = numeroEleitos(partidos);
+        int contMenor30 = 0, cont30a39 = 0, cont40a49 = 0, cont50a59 = 0, cont60 = 0;
+
+        for (Partido p : partidos.values()) {
+            for (Candidato c : p.getCandidatos().values()) {
+                if (c.eleito()) {
+                    idade = c.getIdade(dataEleicao);
+                    
+                    if (idade < 30) {
+                        contMenor30++;
+                    } else if (idade >= 30 && idade <= 39) {
+                        cont30a39++;
+                    } else if (idade >= 40 && idade <= 49) {
+                        cont40a49++;
+                    } else if (idade >= 50 && idade <= 59) {
+                        cont50a59++;
+                    } else {
+                        cont60++;
+                    }
+                }
+            }
+        }
+        System.out.println("      Idade < 30: " + contMenor30 + " (" + format.format((double) contMenor30 / eleitos * 100) + "%)");
+        System.out.println("30 <= Idade < 40: " + cont30a39 + " (" + format.format((double) cont30a39 / eleitos * 100) + "%)");
+        System.out.println("40 <= Idade < 50: " + cont40a49 + " (" + format.format((double) cont40a49 / eleitos * 100) + "%)");
+        System.out.println("50 <= Idade < 60: " + cont50a59 + " (" + format.format((double) cont50a59 / eleitos * 100) + "%)");
+        System.out.println("60 <= Idade\t: " + cont60 + " (" + format.format((double) cont60 / eleitos * 100) + "%)");
     }
 
     //Relatorio 9

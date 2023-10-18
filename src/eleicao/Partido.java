@@ -26,7 +26,6 @@ public class Partido {
             this.qtdVotosLegenda += qtdVotos;
         else
             candidatos.get(numVotavel).adicionarVoto(qtdVotos);
-        //Válido (legenda)
     }
 
     public void adicionarVotoLegenda(int qtdVotos) {
@@ -64,6 +63,26 @@ public class Partido {
 
     public HashMap<Integer, Candidato> getCandidatos() {
         return new HashMap<Integer, Candidato>(candidatos);
+    }
+
+    public Candidato getCandidatoMaisVotado() {
+        Candidato maisVotado = null;
+        for (Candidato c : candidatos.values()) {
+            if (maisVotado == null || c.getQtdVotosNominal() > maisVotado.getQtdVotosNominal())
+                maisVotado = c;
+            else if (c.getQtdVotosNominal() == maisVotado.getQtdVotosNominal() && maisVotado.getDataNascimento().compareTo(c.getDataNascimento()) > 0)
+                maisVotado = c;
+        }
+        return maisVotado;
+    }
+
+    public Candidato getCandidatoMenosVotado() {
+        Candidato menosVotado = null;
+        for (Candidato c : candidatos.values()) {
+            if (menosVotado == null || c.getQtdVotosNominal() < menosVotado.getQtdVotosNominal())
+                menosVotado = c;
+        }
+        return menosVotado;
     }
 
     @Override

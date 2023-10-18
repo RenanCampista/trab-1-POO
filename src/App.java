@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import eleicao.Partido;
 import relatorio.Relatorio;
+import java.text.SimpleDateFormat;
 
 public class App {
     
@@ -9,8 +10,9 @@ public class App {
         HashMap<Integer, Partido> partidos = new HashMap<>();
         partidos = entrada.readCandidatos("C:\\Users\\renan\\OneDrive\\Área de Trabalho\\trab-1-POO\\src\\consulta_cand_2022_ES.csv", "estadual");
         entrada.readVotacao("C:\\Users\\renan\\OneDrive\\Área de Trabalho\\trab-1-POO\\src\\votacao_secao_2022_ES.csv", "estadual", partidos);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        Relatorio relatorio = new Relatorio();
+        Relatorio relatorio = new Relatorio(dateFormat.parse("02/10/2022"));
 
         System.out.println("Número de vagas: " + relatorio.numeroEleitos(partidos) + "\n");
 
@@ -30,6 +32,12 @@ public class App {
 
         System.out.println("\nVotação dos partidos e número de candidatos eleitos:");
         relatorio.votosTotalizadosPorPartido(partidos);
+
+        System.out.println("\nPrimeiro e último colocados de cada partido: ");
+        relatorio.primeiroUltimoColocadosPartido(partidos);
+
+        System.out.println("\nEleitos, por faixa etária (na data da eleição):");
+        relatorio.eleitosPorFaixaEtaria(partidos);
 
         System.out.println("\nEleitos por gênero:");
         relatorio.eleitosPorGenero(partidos);
