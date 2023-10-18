@@ -114,25 +114,13 @@ public class Relatorio {
 
     //Relatorio 7
     public void primeiroUltimoColocadosPartido(HashMap<Integer, Partido> partidos) {
-        ArrayList<Candidato> candidatos = new ArrayList<>();
-        for (Partido p : partidos.values()) {
-            Candidato maisVotado = p.getCandidatoMaisVotado();
-            Candidato menosVotado = p.getCandidatoMenosVotado();
-            if (maisVotado != null) candidatos.add(maisVotado);
-            if (menosVotado != null) candidatos.add(menosVotado);
+        ArrayList<Partido> partidosList = new ArrayList<>(partidos.values());
+        Collections.sort(partidosList, new MaisVotadoComparator());
 
-        }
-        Collections.sort(candidatos, new VotoNominalComparator());
-
-        for (int i = 0; i < candidatos.size(); i++) {
-            System.out.print(i+1 + " - " + candidatos.get(i).getSiglaPartido() + " - " + candidatos.get(i).getNumPartido() + ", " + candidatos.get(i) + " / ");
-
-            for(int j = i+1; j < candidatos.size(); j++) {
-                if (candidatos.get(i).getNumPartido() == candidatos.get(j).getNumPartido()) {
-                    System.out.println(candidatos.get(j));
-                    break;
-                }
-            }
+        int i = 1;
+        for (Partido p : partidosList) {
+            System.out.println(i+1 + " - " + p.getSiglaPartido() + " - " + p.getNumPartido() + p.getCandidatoMaisVotado() + " / " + p.getCandidatoMenosVotado());
+            i++;
         }
     }
 
@@ -218,6 +206,20 @@ class VotoPartidoComparator implements Comparator<Partido> {
         if (totalVotosP1 > totalVotosP2) 
             return -1;
         else if (totalVotosP1 == totalVotosP2) 
+            return p1.getNumPartido() < p2.getNumPartido() ? -1 : 1;
+        else 
+            return 1;   
+    }
+}
+
+class MaisVotadoComparator implements Comparator<Partido> {
+    @Override
+    public int compare(Partido p1, Partido p2) {
+        int votosP1 = p1.getCandidatoMaisVotado().getQtdVotosNominal();
+        int votosP2 = p2.getCandidatoMaisVotado().getQtdVotosNominal();
+        if (votosP1 > votosP2) 
+            return -1;
+        else if (votosP1 == votosP2) 
             return p1.getNumPartido() < p2.getNumPartido() ? -1 : 1;
         else 
             return 1;   

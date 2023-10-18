@@ -21,6 +21,10 @@ public class Partido {
         return candidatos.containsKey(numCandidato);
     }
 
+    public String getSiglaPartido() {
+        return siglaPartido;
+    }
+
     public void adicionarVotoCandidato(int numVotavel, int qtdVotos) {
         if (candidatos.get(numVotavel).getTipoDestinacaoVotos().equals("Válido (legenda)"))
             this.qtdVotosLegenda += qtdVotos;
