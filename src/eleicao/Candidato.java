@@ -6,7 +6,7 @@ import java.util.Locale;
 public class Candidato {
     Locale locale = new Locale.Builder().setLanguage("pt").setRegion("BR").build();
     NumberFormat format = NumberFormat.getNumberInstance(locale);
-   enum Genero {
+   public enum Genero {
         MASCULINO, FEMININO
     }
 
@@ -64,6 +64,10 @@ public class Candidato {
 
     public int getQtdVotosNominal() {
         return qtdVotosNominal;
+    }
+
+    public Genero getCodGenero() {
+        return codGenero;
     }
 
     public boolean temFederacao() {

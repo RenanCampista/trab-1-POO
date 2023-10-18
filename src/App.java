@@ -19,5 +19,13 @@ public class App {
 
         System.out.println("\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):");
         relatorio.candidatosMaisVotados(partidos);
+
+        System.out.println("\nVotação dos partidos e número de candidatos eleitos:");
+        relatorio.votosTotalizadosPorPartido(partidos);
+
+        System.out.println("Eleitos por gênero:");
+        relatorio.eleitosPorGenero(partidos);
+
+        relatorio.totalVotosValidos(partidos);
     }
 }

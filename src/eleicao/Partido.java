@@ -46,17 +46,29 @@ public class Partido {
         return eleitos;
     }
 
+    public int getVotosNominais() {
+        int votos = 0;
+        for (Candidato c : candidatos.values()) {
+            votos += c.getQtdVotosNominal();
+        }
+        return votos;
+    }
+
+    public int getVotosLegenda() {
+        return qtdVotosLegenda;
+    }
+
+    public int getTotalVotos() {
+        return this.qtdVotosLegenda + this.getVotosNominais();
+    }
+
     public HashMap<Integer, Candidato> getCandidatos() {
         return new HashMap<Integer, Candidato>(candidatos);
     }
 
     @Override
     public String toString() {
-        String out = "";
-        for (Candidato c : candidatos.values()) {
-            out += c.toString() + "\n";
-        }
-        return out + "\n";
+        return this.siglaPartido + " - " + this.numPartido;
     }
 }
 
