@@ -71,7 +71,7 @@ public class Entrada {
                 int statusCandidatura = Integer.parseInt(fields[EntradaCandidato.CD_SIT_TOT_TURNO.getValue()].replace("\"", ""));
                 int codGenero = Integer.parseInt(fields[EntradaCandidato.CD_GENERO.getValue()].replace("\"", ""));
                 String tipoDestinacaoVotos = fields[EntradaCandidato.NM_TIPO_DESTINACAO_VOTOS.getValue()].replace("\"", "");
-                Candidato candidato = new Candidato(codCargo, codSituacaoCandidato, numCandidato, nomeUrna, numPartido, siglaPartido, 
+                Candidato candidato = new Candidato(codSituacaoCandidato, numCandidato, nomeUrna, numPartido, siglaPartido, 
                 numFederacao, dataNascimento, statusCandidatura, codGenero, tipoDestinacaoVotos);
          
                 if (partidos.containsKey(numPartido)) {
@@ -87,8 +87,6 @@ public class Entrada {
                     }
                     partidos.put(numPartido, partido);
                 }
-                
-
                 line = br.readLine();
             }
         } catch (Exception e) {
@@ -114,8 +112,6 @@ public class Entrada {
                                 p.adicionarVotoCandidato(numVotavel, qtdVotos);
                             else if (numVotavel == p.getNumPartido()) 
                                 p.adicionarVotoLegenda(qtdVotos);
-
-
                         }
                     }
                 }
@@ -126,6 +122,4 @@ public class Entrada {
             System.out.println("Error: " + e.getMessage());
         } 
     }
-
-
 }

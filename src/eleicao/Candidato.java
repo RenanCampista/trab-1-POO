@@ -16,8 +16,6 @@ public class Candidato {
         ELEITO, NAO_ELEITO
     }
     
-
-    private int codCargo;
     private int codSituacaoCandidato;
     private int numCandidato;
     private String nomeUrna;
@@ -30,11 +28,10 @@ public class Candidato {
     private String tipoDestinacaoVotos;
     private int qtdVotosNominal;
 
-    public Candidato(int codCargo, int codSituacaoCandidato, int numCandidato, String nomeUrna,
+    public Candidato(int codSituacaoCandidato, int numCandidato, String nomeUrna,
             int numPartido, String siglaPartido, int numFederacao, Date dataNascimento, int statusCandidatura,
             int codGenero, String tipoDestinacaoVotos) {
 
-        this.codCargo = codCargo;
         this.codSituacaoCandidato = codSituacaoCandidato;
         this.numCandidato = numCandidato;
         this.nomeUrna = nomeUrna;
@@ -92,6 +89,10 @@ public class Candidato {
         return codGenero;
     }
 
+    public String getNomeUrna() {
+        return nomeUrna;
+    }
+
     public String getTipoDestinacaoVotos() {
         return tipoDestinacaoVotos;
     }
@@ -112,7 +113,6 @@ public class Candidato {
         this.qtdVotosNominal += qtdVotos;
     }
 
-
     @Override
     public String toString() {
         String out = "";
@@ -121,9 +121,6 @@ public class Candidato {
         out += this.nomeUrna + "(" + this.siglaPartido + ", " + format.format(this.qtdVotosNominal) + " votos)";
         return out;
     }
-
-
-
     
 }
 

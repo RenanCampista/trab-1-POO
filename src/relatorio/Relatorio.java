@@ -125,7 +125,11 @@ public class Relatorio {
 
         int i = 1;
         for (Partido p : partidosList) {
-            System.out.println(i + " - " + p.getSiglaPartido() + " - " + p.getNumPartido() + p.getCandidatoMaisVotado() + " / " + p.getCandidatoMenosVotado());
+            Candidato maisVotado = p.getCandidatoMaisVotado();
+            Candidato menosVotado = p.getCandidatoMenosVotado();
+            System.out.println(i + " - " + p.getSiglaPartido() + " - " + p.getNumPartido() + " " + maisVotado.getNomeUrna() + 
+                                "(" + maisVotado.getNumCandidato() + ", " + format.format(maisVotado.getQtdVotosNominal()) + " votos)" + " / " + 
+                                menosVotado.getNomeUrna() + "(" + menosVotado.getNumCandidato() + ", " + format.format(menosVotado.getQtdVotosNominal()) + " votos)");
             i++;
         }
     }
