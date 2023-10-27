@@ -59,25 +59,68 @@ public class Entrada {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), Charset.forName("ISO-8859-1")))) {
             String line = br.readLine();
             line = br.readLine();
+
+            int codCargo = 0, codSituacaoCandidato = 0, numCandidato = 0, numPartido = 0, numFederacao = 0, statusCandidatura = 0, codGenero = 0;
+            String nomeUrna, siglaPartido, tipoDestinacaoVotos;
+            Date dataNascimento = null; 
+
             while (line != null) {
                 String[] fields = line.split(";");
-                int codCargo = Integer.parseInt(fields[EntradaCandidato.CD_CARGO.getValue()].replace("\"", ""));
-                int codSituacaoCandidato = Integer.parseInt(fields[EntradaCandidato.CD_SITUACAO_CANDIDATO_TOT.getValue()].replace("\"", ""));
-                int numCandidato = Integer.parseInt(fields[EntradaCandidato.NR_CANDIDATO.getValue()].replace("\"", ""));
-                String nomeUrna = fields[EntradaCandidato.NM_URNA_CANDIDATO.getValue()].replace("\"", "");
-                int numPartido = Integer.parseInt(fields[EntradaCandidato.NR_PARTIDO.getValue()].replace("\"", ""));
-                String siglaPartido = fields[EntradaCandidato.SG_PARTIDO.getValue()].replace("\"", "");
-                int numFederacao = Integer.parseInt(fields[EntradaCandidato.NR_FEDERACAO.getValue()].replace("\"", ""));
-                Date dataNascimento = null;
+                try {
+                    codCargo = Integer.parseInt(fields[EntradaCandidato.CD_CARGO.getValue()].replace("\"", ""));
+                } catch (NumberFormatException e) {
+                    System.err.println("Erro ao converter o valor de CD_CARGO para inteiro: " + e.getMessage());
+                }
+
+                try {
+                    codSituacaoCandidato = Integer.parseInt(fields[EntradaCandidato.CD_SITUACAO_CANDIDATO_TOT.getValue()].replace("\"", ""));
+                } catch (NumberFormatException e) {
+                    System.err.println("Erro ao converter o valor de CD_SITUACAO_CANDIDATO_TOT para inteiro: " + e.getMessage());
+                }
+
+                try {
+                    numCandidato = Integer.parseInt(fields[EntradaCandidato.NR_CANDIDATO.getValue()].replace("\"", ""));
+                } catch (NumberFormatException e) {
+                    System.err.println("Erro ao converter o valor de NR_CANDIDATO para inteiro: " + e.getMessage());
+                }
+               
+                nomeUrna = fields[EntradaCandidato.NM_URNA_CANDIDATO.getValue()].replace("\"", "");
+                
+                try {
+                    numPartido = Integer.parseInt(fields[EntradaCandidato.NR_PARTIDO.getValue()].replace("\"", ""));
+                } catch (NumberFormatException e) {
+                    System.err.println("Erro ao converter o valor de NR_PARTIDO para inteiro: " + e.getMessage());
+                }
+
+                siglaPartido = fields[EntradaCandidato.SG_PARTIDO.getValue()].replace("\"", "");
+
+                try {
+                    numFederacao = Integer.parseInt(fields[EntradaCandidato.NR_FEDERACAO.getValue()].replace("\"", ""));
+                } catch (NumberFormatException e) {
+                    System.err.println("Erro ao converter o valor de NR_FEDERACAO para inteiro: " + e.getMessage());
+                }
+
                 if(fields[EntradaCandidato.DT_NASCIMENTO.getValue()].replace("\"", "") != ""){
                     dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(fields[EntradaCandidato.DT_NASCIMENTO.getValue()].replace("\"", ""));
                 }
-                int statusCandidatura = Integer.parseInt(fields[EntradaCandidato.CD_SIT_TOT_TURNO.getValue()].replace("\"", ""));
-                int codGenero = Integer.parseInt(fields[EntradaCandidato.CD_GENERO.getValue()].replace("\"", ""));
-                String tipoDestinacaoVotos = fields[EntradaCandidato.NM_TIPO_DESTINACAO_VOTOS.getValue()].replace("\"", "");
+
+                try {
+                    statusCandidatura = Integer.parseInt(fields[EntradaCandidato.CD_SIT_TOT_TURNO.getValue()].replace("\"", ""));
+                } catch (NumberFormatException e) {
+                    System.err.println("Erro ao converter o valor de CD_SIT_TOT_TURNO para inteiro: " + e.getMessage());
+                }
+
+                try {
+                    codGenero = Integer.parseInt(fields[EntradaCandidato.CD_GENERO.getValue()].replace("\"", ""));
+                } catch (NumberFormatException e) {
+                    System.err.println("Erro ao converter o valor de CD_GENERO para inteiro: " + e.getMessage());
+                }
+
+                tipoDestinacaoVotos = fields[EntradaCandidato.NM_TIPO_DESTINACAO_VOTOS.getValue()].replace("\"", "");
+
                 Candidato candidato = new Candidato(codSituacaoCandidato, numCandidato, nomeUrna, numPartido, siglaPartido, 
                 numFederacao, dataNascimento, statusCandidatura, codGenero, tipoDestinacaoVotos);
-         
+
                 if (partidos.containsKey(numPartido)) {
                     if ((opcao.equals("estadual") && codCargo == 7 || opcao.equals("federal") && codCargo == 6)) {
                         if ((candidato.getCodSituacaoCandidato() == 2 || candidato.getCodSituacaoCandidato() == 16) || tipoDestinacaoVotos.equals("Válido (legenda)"))    
@@ -103,12 +146,28 @@ public class Entrada {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), Charset.forName("ISO-8859-1")))) {
             String line = br.readLine();
             line = br.readLine();
+            int codCargo = 0, numVotavel = 0, qtdVotos = 0;
             while (line != null) {
                 String[] fields = line.split(";");
-                int codCargo = Integer.parseInt(fields[EntradaVotacao.CD_CARGO.getValue()].replace("\"", ""));
+
+                try {
+                    codCargo = Integer.parseInt(fields[EntradaVotacao.CD_CARGO.getValue()].replace("\"", ""));
+                } catch (NumberFormatException e) {
+                    System.err.println("Erro ao converter o valor de CD_CARGO para inteiro: " + e.getMessage());
+                }
+
                 if (arg.equals("estadual") && codCargo == 7  || arg.equals("federal") && codCargo == 6) {
-                    int numVotavel = Integer.parseInt(fields[EntradaVotacao.NR_VOTAVEL.getValue()].replace("\"", ""));
-                    int qtdVotos = Integer.parseInt(fields[EntradaVotacao.QT_VOTOS.getValue()].replace("\"", ""));
+                    try {
+                        numVotavel = Integer.parseInt(fields[EntradaVotacao.NR_VOTAVEL.getValue()].replace("\"", ""));
+                    } catch (NumberFormatException e) {
+                        System.err.println("Erro ao converter o valor de NR_VOTAVEL para inteiro: " + e.getMessage());
+                    }
+
+                    try {
+                        qtdVotos = Integer.parseInt(fields[EntradaVotacao.QT_VOTOS.getValue()].replace("\"", ""));
+                    } catch (NumberFormatException e) {
+                        System.err.println("Erro ao converter o valor de QT_VOTOS para inteiro: " + e.getMessage());
+                    }
 
                     if (numVotavel < 95 || numVotavel > 98) {
                         for (Partido p : partidos.values()) {
