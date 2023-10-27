@@ -8,11 +8,11 @@ public class App {
     public static void main(String[] args) throws Exception {
         Entrada entrada = new Entrada();
         HashMap<Integer, Partido> partidos = new HashMap<>();
-        partidos = entrada.readCandidatos("C:\\Users\\renan\\OneDrive\\Área de Trabalho\\trab-1-POO\\src\\consulta_cand_2022_ES.csv", "estadual");
-        entrada.readVotacao("C:\\Users\\renan\\OneDrive\\Área de Trabalho\\trab-1-POO\\src\\votacao_secao_2022_ES.csv", "estadual", partidos);
+        String opcao = args[0].replace("--","");
+        partidos = entrada.readCandidatos(args[1], opcao);
+        entrada.readVotacao(args[2], opcao, partidos);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-        Relatorio relatorio = new Relatorio(dateFormat.parse("02/10/2022"));
+        Relatorio relatorio = new Relatorio(dateFormat.parse(args[3]));
 
         System.out.println("Número de vagas: " + relatorio.numeroEleitos(partidos) + "\n");
 
@@ -45,3 +45,4 @@ public class App {
         relatorio.totalVotosValidos(partidos);
     }
 }
+
