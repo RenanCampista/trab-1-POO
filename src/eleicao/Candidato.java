@@ -9,7 +9,7 @@ import java.util.Locale;
 public class Candidato {
     Locale locale = new Locale.Builder().setLanguage("pt").setRegion("BR").build();
     NumberFormat format = NumberFormat.getNumberInstance(locale);
-   public enum Genero {
+    public enum Genero {
         MASCULINO, FEMININO
     }
 
@@ -54,8 +54,16 @@ public class Candidato {
         this.qtdVotosNominal = 0;
     }
 
+    public int getCodSituacaoCandidato() {
+        return codSituacaoCandidato;
+    }
+
     public int getNumCandidato() {
         return numCandidato;
+    }
+
+    public String getNomeUrna() {
+        return nomeUrna;
     }
 
     public int getNumPartido() {
@@ -66,8 +74,28 @@ public class Candidato {
         return siglaPartido;
     }
 
+    public int getNumFederacao() {
+        return numFederacao;
+    }
+
     public Date getDataNascimento() {
         return dataNascimento;
+    }
+
+    public SituacaoCandidato getStatusCandidatura() {
+        return statusCandidatura;
+    }
+
+    public Genero getCodGenero() {
+        return codGenero;
+    }
+
+    public String getTipoDestinacaoVotos() {
+        return tipoDestinacaoVotos;
+    }
+
+    public int getQtdVotosNominal() {
+        return qtdVotosNominal;
     }
 
     public int getIdade(Date dataEleicao) {
@@ -76,26 +104,6 @@ public class Candidato {
                                         dataEleicao.toInstant().atZone(ZoneId.of("America/Sao_Paulo")).toLocalDate());
         idade = periodo.getYears();
         return idade;
-    }
-
-    public int getCodSituacaoCandidato() {
-        return codSituacaoCandidato;
-    }
-    
-    public int getQtdVotosNominal() {
-        return qtdVotosNominal;
-    }
-
-    public Genero getCodGenero() {
-        return codGenero;
-    }
-
-    public String getNomeUrna() {
-        return nomeUrna;
-    }
-
-    public String getTipoDestinacaoVotos() {
-        return tipoDestinacaoVotos;
     }
 
     public boolean temFederacao() {
