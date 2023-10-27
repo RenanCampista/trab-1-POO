@@ -101,7 +101,11 @@ public class Entrada {
                 }
 
                 if(fields[EntradaCandidato.DT_NASCIMENTO.getValue()].replace("\"", "") != ""){
-                    dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(fields[EntradaCandidato.DT_NASCIMENTO.getValue()].replace("\"", ""));
+                    try {
+                        dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(fields[EntradaCandidato.DT_NASCIMENTO.getValue()].replace("\"", ""));
+                    } catch (Exception e) {
+                        System.err.println("Erro ao converter o valor de DT_NASCIMENTO para data: " + e.getMessage());
+                    }
                 }
 
                 try {
@@ -137,7 +141,7 @@ public class Entrada {
                 line = br.readLine();
             }
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.err.println("Erro de E/S: " + e.getMessage());
         }
         return new HashMap<Integer, Partido>(partidos);
     }
@@ -182,7 +186,7 @@ public class Entrada {
             }
 
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.err.println("Erro de E/S: " + e.getMessage());
         } 
     }
 }
