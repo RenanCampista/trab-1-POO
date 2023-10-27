@@ -2,6 +2,7 @@ package eleicao;
 import java.text.NumberFormat;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
@@ -121,6 +122,16 @@ public class Candidato {
         out += this.nomeUrna + "(" + this.siglaPartido + ", " + format.format(this.qtdVotosNominal) + " votos)";
         return out;
     }
+
+    public static class VotoNominalComparator implements Comparator<Candidato> {
+        
+        @Override
+        public int compare(Candidato c1, Candidato c2) {
+            return c2.getQtdVotosNominal() - c1.getQtdVotosNominal();
+        }
+    }
     
 }
+
+
 
