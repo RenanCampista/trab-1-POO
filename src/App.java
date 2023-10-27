@@ -23,35 +23,39 @@ public class App {
             System.err.println("Erro ao analisar a data. Certifique-se de fornecer a data no formato correto (dd/MM/yyyy).");
         }
 
-        System.out.println("Número de vagas: " + relatorio.numeroEleitos(partidos) + "\n");
+        try {
+            System.out.println("Número de vagas: " + relatorio.numeroEleitos(partidos) + "\n");
 
-        System.out.println("Deputados est/fedr eleitos:");
-        relatorio.candidatosELeitos(partidos);
+            System.out.println("Deputados est/fedr eleitos:");
+            relatorio.candidatosELeitos(partidos);
 
-        System.out.println("\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):");
-        relatorio.candidatosMaisVotados(partidos);
+            System.out.println("\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):");
+            relatorio.candidatosMaisVotados(partidos);
 
-        System.out.println("\nTeriam sido eleitos se a votação fosse majoritária, e não foram eleitos:");
-        System.out.println("(com sua posição no ranking de mais votados)");
-        relatorio.teriamSidoEleitos(partidos);
+            System.out.println("\nTeriam sido eleitos se a votação fosse majoritária, e não foram eleitos:");
+            System.out.println("(com sua posição no ranking de mais votados)");
+            relatorio.teriamSidoEleitos(partidos);
 
-        System.out.println("\nEleitos, que se beneficiaram do sistema proporcional:");
-        System.out.println("(com sua posição no ranking de mais votados)");
-        relatorio.eleitosBeneficiadosSistemaProporcional(partidos);
+            System.out.println("\nEleitos, que se beneficiaram do sistema proporcional:");
+            System.out.println("(com sua posição no ranking de mais votados)");
+            relatorio.eleitosBeneficiadosSistemaProporcional(partidos);
 
-        System.out.println("\nVotação dos partidos e número de candidatos eleitos:");
-        relatorio.votosTotalizadosPorPartido(partidos);
+            System.out.println("\nVotação dos partidos e número de candidatos eleitos:");
+            relatorio.votosTotalizadosPorPartido(partidos);
 
-        System.out.println("\nPrimeiro e último colocados de cada partido: ");
-        relatorio.primeiroUltimoColocadosPartido(partidos);
+            System.out.println("\nPrimeiro e último colocados de cada partido: ");
+            relatorio.primeiroUltimoColocadosPartido(partidos);
 
-        System.out.println("\nEleitos, por faixa etária (na data da eleição):");
-        relatorio.eleitosPorFaixaEtaria(partidos);
+            System.out.println("\nEleitos, por faixa etária (na data da eleição):");
+            relatorio.eleitosPorFaixaEtaria(partidos);
 
-        System.out.println("\nEleitos por gênero:");
-        relatorio.eleitosPorGenero(partidos);
+            System.out.println("\nEleitos por gênero:");
+            relatorio.eleitosPorGenero(partidos);
 
-        relatorio.totalVotosValidos(partidos);
+            relatorio.totalVotosValidos(partidos);
+        } catch (NullPointerException e) {
+            System.err.println("Erro ao gerar relatório. Certifique-se de fornecer os arquivos corretos.");
+        }
     }
 }
 
