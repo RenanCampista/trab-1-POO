@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import eleicao.Partido;
+import eleicao.Partido.MaisVotadoComparator;
+import eleicao.Partido.VotoPartidoComparator;
 import eleicao.Candidato.Genero;
+import eleicao.Candidato.VotoNominalComparator;
 import eleicao.Candidato;
 import java.util.Locale;
 
@@ -198,45 +200,5 @@ public class Relatorio {
         System.out.println("Total de votos válidos: " + format.format(votosValidos));
         System.out.println("Total de votos nominais: " + format.format(votosNominais) + " (" + format.format((double) votosNominais / votosValidos * 100) + "%)");
         System.out.println("Total de votos de legenda: " + format.format(votosLegenda) + " (" + format.format((double) votosLegenda / votosValidos * 100) + "%)");
-    }
-}
-
-class VotoNominalComparator implements Comparator<Candidato> {
-    @Override
-    public int compare(Candidato c1, Candidato c2) {
-        return c2.getQtdVotosNominal() - c1.getQtdVotosNominal();
-    }
-}
-
-class VotoPartidoComparator implements Comparator<Partido> {
-    @Override
-    public int compare(Partido p1, Partido p2) {
-        int totalVotosP1 = p1.getTotalVotos();
-        int totalVotosP2 = p2.getTotalVotos();
-        if (totalVotosP1 > totalVotosP2) 
-            return -1;
-        else if (totalVotosP1 == totalVotosP2) 
-            return p1.getNumPartido() < p2.getNumPartido() ? -1 : 1;
-        else 
-            return 1;   
-    }
-}
-
-class MaisVotadoComparator implements Comparator<Partido> {
-    @Override
-    public int compare(Partido p1, Partido p2) {
-        Candidato c1 = p1.getCandidatoMaisVotado();
-        Candidato c2 = p2.getCandidatoMaisVotado();
-        if (c1 == null || c2 == null) return 0;
-
-        int votosP1 = c1.getQtdVotosNominal();
-        int votosP2 = c2.getQtdVotosNominal();
-
-        if (votosP1 > votosP2) 
-            return -1;
-        else if (votosP1 == votosP2) 
-            return p1.getNumPartido() < p2.getNumPartido() ? -1 : 1;
-        else 
-            return 1;   
     }
 }
