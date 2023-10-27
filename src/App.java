@@ -1,13 +1,15 @@
 import java.util.HashMap;
+import java.text.SimpleDateFormat;
 import eleicao.Partido;
 import relatorio.Relatorio;
-import java.text.SimpleDateFormat;
+import leitura.Entrada;
 
 public class App {
     
     public static void main(String[] args) throws Exception {
         Entrada entrada = new Entrada();
         HashMap<Integer, Partido> partidos = new HashMap<>();
+
         String opcao = args[0].replace("--","");
         partidos = entrada.readCandidatos(args[1], opcao);
         entrada.readVotacao(args[2], opcao, partidos);
