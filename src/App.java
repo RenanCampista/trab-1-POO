@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import eleicao.Partido;
 import relatorio.Relatorio;
@@ -9,12 +10,19 @@ public class App {
     public static void main(String[] args) throws Exception {
         Entrada entrada = new Entrada();
         HashMap<Integer, Partido> partidos = new HashMap<>();
+        Relatorio relatorio = null;
 
-        String opcao = args[0].replace("--","");
-        partidos = entrada.readCandidatos(args[1], opcao);
-        entrada.readVotacao(args[2], opcao, partidos);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Relatorio relatorio = new Relatorio(dateFormat.parse(args[3]));
+        try {
+            String opcao = args[0].replace("--","");
+            partidos = entrada.readCandidatos(args[1], opcao);
+            entrada.readVotacao(args[2], opcao, partidos);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            relatorio = new Relatorio(dateFormat.parse(args[3]));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Argumentos insuficientes. Certifique-se de fornecer todos os argumentos necessários.");
+        } catch (ParseException e) {
+            System.err.println("Erro ao analisar a data. Certifique-se de fornecer a data no formato correto (dd/MM/yyyy).");
+        }
 
         System.out.println("Número de vagas: " + relatorio.numeroEleitos(partidos) + "\n");
 
