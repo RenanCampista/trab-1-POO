@@ -10,7 +10,7 @@ import eleicao.Partido;
 import java.util.HashMap;
 
 public class Entrada {
-    HashMap<Integer, Partido> partidos = new HashMap<>();
+    private HashMap<Integer, Partido> partidos = new HashMap<>();
 
     public enum EntradaCandidato {
         CD_CARGO(13),

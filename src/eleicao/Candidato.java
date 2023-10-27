@@ -7,12 +7,12 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Candidato {
-    Locale locale = new Locale.Builder().setLanguage("pt").setRegion("BR").build();
-    NumberFormat format = NumberFormat.getNumberInstance(locale);
+    private Locale locale = new Locale.Builder().setLanguage("pt").setRegion("BR").build();
+    private NumberFormat format = NumberFormat.getNumberInstance(locale);
+    
     public enum Genero {
         MASCULINO, FEMININO
     }
-
     enum SituacaoCandidato {
         ELEITO, NAO_ELEITO
     }

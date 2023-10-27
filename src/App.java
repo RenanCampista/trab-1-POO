@@ -5,8 +5,7 @@ import eleicao.Partido;
 import relatorio.Relatorio;
 import leitura.Entrada;
 
-public class App {
-    
+public class App { 
     public static void main(String[] args) throws Exception {
         Entrada entrada = new Entrada();
         HashMap<Integer, Partido> partidos = new HashMap<>();

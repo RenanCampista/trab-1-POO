@@ -108,7 +108,7 @@ public class Relatorio {
         int i = 1;
         for (Partido p : partidosList) {
             System.out.println(i + " - " + p + ", " + format.format(p.getTotalVotos()) + " votos " + "(" + 
-                        format.format(p.getVotosNominais()) + " nominais e " + format.format(p.getVotosLegenda()) + " de legenda), " + 
+                        format.format(p.getVotosNominais()) + " nominais e " + format.format(p.getQtdVotosLegenda()) + " de legenda), " + 
                         format.format(p.getEleitos()) + " candidatos eleitos");
             i++;
         }
@@ -192,7 +192,7 @@ public class Relatorio {
         int votosLegenda = 0;
         int votosNominais = 0;
         for (Partido p : partidos.values()) {
-            votosLegenda += p.getVotosLegenda();
+            votosLegenda += p.getQtdVotosLegenda();
             votosNominais += p.getVotosNominais();
         }
         votosValidos = votosLegenda + votosNominais;
