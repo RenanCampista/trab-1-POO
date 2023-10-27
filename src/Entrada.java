@@ -67,7 +67,10 @@ public class Entrada {
                 int numPartido = Integer.parseInt(fields[EntradaCandidato.NR_PARTIDO.getValue()].replace("\"", ""));
                 String siglaPartido = fields[EntradaCandidato.SG_PARTIDO.getValue()].replace("\"", "");
                 int numFederacao = Integer.parseInt(fields[EntradaCandidato.NR_FEDERACAO.getValue()].replace("\"", ""));
-                Date dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(fields[EntradaCandidato.DT_NASCIMENTO.getValue()].replace("\"", ""));
+                Date dataNascimento = null;
+                if(fields[EntradaCandidato.DT_NASCIMENTO.getValue()].replace("\"", "") != ""){
+                    dataNascimento = new SimpleDateFormat("dd/MM/yyyy").parse(fields[EntradaCandidato.DT_NASCIMENTO.getValue()].replace("\"", ""));
+                }
                 int statusCandidatura = Integer.parseInt(fields[EntradaCandidato.CD_SIT_TOT_TURNO.getValue()].replace("\"", ""));
                 int codGenero = Integer.parseInt(fields[EntradaCandidato.CD_GENERO.getValue()].replace("\"", ""));
                 String tipoDestinacaoVotos = fields[EntradaCandidato.NM_TIPO_DESTINACAO_VOTOS.getValue()].replace("\"", "");
