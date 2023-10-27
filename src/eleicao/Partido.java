@@ -1,4 +1,5 @@
 package eleicao;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class Partido {
@@ -96,6 +97,39 @@ public class Partido {
     @Override
     public String toString() {
         return this.siglaPartido + " - " + this.numPartido;
+    }
+
+    public static class VotoPartidoComparator implements Comparator<Partido> {
+    @Override
+    public int compare(Partido p1, Partido p2) {
+        int totalVotosP1 = p1.getTotalVotos();
+        int totalVotosP2 = p2.getTotalVotos();
+        if (totalVotosP1 > totalVotosP2) 
+            return -1;
+        else if (totalVotosP1 == totalVotosP2) 
+            return p1.getNumPartido() < p2.getNumPartido() ? -1 : 1;
+        else 
+            return 1;   
+    }
+}
+
+    public static class MaisVotadoComparator implements Comparator<Partido> {
+        @Override
+        public int compare(Partido p1, Partido p2) {
+            Candidato c1 = p1.getCandidatoMaisVotado();
+            Candidato c2 = p2.getCandidatoMaisVotado();
+            if (c1 == null || c2 == null) return 0;
+
+            int votosP1 = c1.getQtdVotosNominal();
+            int votosP2 = c2.getQtdVotosNominal();
+
+            if (votosP1 > votosP2) 
+                return -1;
+            else if (votosP1 == votosP2) 
+                return p1.getNumPartido() < p2.getNumPartido() ? -1 : 1;
+            else 
+                return 1;   
+        }
     }
 }
 
