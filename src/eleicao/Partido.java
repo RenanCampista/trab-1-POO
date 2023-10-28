@@ -29,7 +29,7 @@ public class Partido {
     public int getEleitos() {
         int eleitos = 0;
         for (Candidato c : candidatos.values()) {
-            if (c.eleito()) eleitos++;
+            if (c.isEleito()) eleitos++;
         }
         return eleitos;
     }
@@ -79,7 +79,7 @@ public class Partido {
         return candidatos.containsKey(numCandidato);
     }
 
-    public boolean temCandidato() {
+    public boolean haCandidatoCadastrado() {
         return !candidatos.isEmpty();
     }
 

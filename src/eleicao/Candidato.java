@@ -114,7 +114,7 @@ public class Candidato {
         return this.tipoDestinacaoVotos.equals("Válido");
     }
 
-    public boolean eleito() {
+    public boolean isEleito() {
         return this.statusCandidatura == SituacaoCandidato.ELEITO;
     }
 

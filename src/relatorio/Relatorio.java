@@ -51,7 +51,7 @@ public class Relatorio {
     public void candidatosELeitos() {
         int i = 0;
         for (Candidato c : candidatosList) {
-            if(c.eleito()) {
+            if(c.isEleito()) {
                 i++;
                 System.out.println(i + " - " + c);
             }
@@ -68,7 +68,7 @@ public class Relatorio {
     //Relatorio 4
     public void teriamSidoEleitos() {
         for (int i = 0; i < numeroTotalEleitos; i++) {
-            if (!candidatosList.get(i).eleito()) {
+            if (!candidatosList.get(i).isEleito()) {
                 System.out.println(i+1 + " - " + candidatosList.get(i));
             }
         }
@@ -77,7 +77,7 @@ public class Relatorio {
     //Relatorio 5
     public void eleitosBeneficiadosSistemaProporcional() {
         for (int i = numeroTotalEleitos; i < candidatosList.size() ; i++) {
-            if (candidatosList.get(i).eleito()) {
+            if (candidatosList.get(i).isEleito()) {
                 System.out.println(i+1 + " - " + candidatosList.get(i));
             }
         }
@@ -100,7 +100,7 @@ public class Relatorio {
         Collections.sort(partidosList, new MaisVotadoComparator());
         int i = 1;
         for (Partido p : partidosList) {
-            if (p.temCandidato()) {
+            if (p.haCandidatoCadastrado()) {
                 Candidato maisVotado = p.getCandidatoMaisVotado();
                 Candidato menosVotado = p.getCandidatoMenosVotado();
                 System.out.println(i + " - " + p.getSiglaPartido() + " - " + p.getNumPartido() + " " + maisVotado.getNomeUrna() + 
@@ -116,7 +116,7 @@ public class Relatorio {
         int idade, eleitos = numeroTotalEleitos;
         int contMenor30 = 0, cont30a39 = 0, cont40a49 = 0, cont50a59 = 0, cont60 = 0;
         for (Candidato c : candidatosList) {
-            if (c.eleito()) {
+            if (c.isEleito()) {
                 idade = c.getIdade(dataEleicao);
                 if (idade < 30) {
                     contMenor30++;
@@ -143,8 +143,8 @@ public class Relatorio {
         int eleitosMasculinos = 0;
         int eleitosFemininos = 0;
         for (Candidato c : candidatosList) {
-            if (c.getCodGenero() == Genero.MASCULINO && c.eleito()) eleitosMasculinos++;
-            else if (c.getCodGenero() == Genero.FEMININO && c.eleito()) eleitosFemininos++;
+            if (c.getCodGenero() == Genero.MASCULINO && c.isEleito()) eleitosMasculinos++;
+            else if (c.getCodGenero() == Genero.FEMININO && c.isEleito()) eleitosFemininos++;
         }
         System.out.println("Feminino: " + eleitosFemininos + " (" + df.format((double) eleitosFemininos / (eleitosFemininos + eleitosMasculinos) * 100) + "%)");
         System.out.println("Masculino: " + eleitosMasculinos + " (" + df.format((double) eleitosMasculinos / (eleitosFemininos + eleitosMasculinos) * 100) + "%)\n");

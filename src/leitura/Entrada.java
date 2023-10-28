@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class Entrada {
     private HashMap<Integer, Partido> partidos = new HashMap<>();
 
-    public enum EntradaCandidato {
+    enum EntradaCandidato {
         CD_CARGO(13),
         CD_SITUACAO_CANDIDATO_TOT(68),
         NR_CANDIDATO(16),
@@ -36,7 +36,7 @@ public class Entrada {
         }
     }
 
-    public enum EntradaVotacao {
+    enum EntradaVotacao {
         CD_CARGO(17),
         NR_VOTAVEL(19),
         QT_VOTOS(21);
