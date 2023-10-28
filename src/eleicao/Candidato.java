@@ -127,7 +127,7 @@ public class Candidato {
         String out = "";
         if (this.temFederacao())
             out += "*";
-        out += this.nomeUrna + "(" + this.siglaPartido + ", " + format.format(this.qtdVotosNominal) + " votos)";
+        out += this.nomeUrna + " (" + this.siglaPartido + ", " + format.format(this.qtdVotosNominal) + " votos)";
         return out;
     }
 

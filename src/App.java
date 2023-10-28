@@ -10,9 +10,10 @@ public class App {
         Entrada entrada = new Entrada();
         HashMap<Integer, Partido> partidos = new HashMap<>();
         Relatorio relatorio = null;
+        String opcao = "";
 
         try {
-            String opcao = args[0].replace("--","");
+            opcao = args[0].replace("--","");
             partidos = entrada.readCandidatos(args[1], opcao);
             entrada.readVotacao(args[2], opcao, partidos);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -25,8 +26,11 @@ public class App {
 
         try {
             System.out.println("Número de vagas: " + relatorio.getNumeroTotalEleitos() + "\n");
-
-            System.out.println("Deputados est/fedr eleitos:");
+            
+            if(opcao.equals("federal"))
+                System.out.println("Deputados federais eleitos:");
+            else if(opcao.equals("estadual"))
+                System.out.println("Deputados estaduais eleitos:");
             relatorio.candidatosELeitos();
 
             System.out.println("\nCandidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):");
