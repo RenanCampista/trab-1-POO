@@ -131,11 +131,11 @@ public class Relatorio {
                 }
             }
         }
-        System.out.println("      Idade < 30: " + contMenor30 + " (" + df.format((double) contMenor30 / eleitos * 100) + "%)");
-        System.out.println("30 <= Idade < 40: " + cont30a39 + " (" + df.format((double) cont30a39 / eleitos * 100) + "%)");
-        System.out.println("40 <= Idade < 50: " + cont40a49 + " (" + df.format((double) cont40a49 / eleitos * 100) + "%)");
-        System.out.println("50 <= Idade < 60: " + cont50a59 + " (" + df.format((double) cont50a59 / eleitos * 100) + "%)");
-        System.out.println("60 <= Idade\t: " + cont60 + " (" + df.format((double) cont60 / eleitos * 100) + "%)");
+        System.out.println("      Idade < 30: " + contMenor30 + " (" + (eleitos == 0 ? "0" : df.format((double) contMenor30 / eleitos * 100)) + "%)");
+        System.out.println("30 <= Idade < 40: " + cont30a39 + " (" + (eleitos == 0 ? "0" : df.format((double) cont30a39 / eleitos * 100)) + "%)");
+        System.out.println("40 <= Idade < 50: " + cont40a49 + " (" + (eleitos == 0 ? "0" : df.format((double) cont40a49 / eleitos * 100)) + "%)");
+        System.out.println("50 <= Idade < 60: " + cont50a59 + " (" + (eleitos == 0 ? "0" : df.format((double) cont50a59 / eleitos * 100)) + "%)");
+        System.out.println("60 <= Idade\t: " + cont60 + " (" + (eleitos == 0 ? "0" : df.format((double) cont60 / eleitos * 100)) + "%)");
     }
 
     //Relatorio 9
@@ -146,8 +146,10 @@ public class Relatorio {
             if (c.getCodGenero() == Genero.MASCULINO && c.isEleito()) eleitosMasculinos++;
             else if (c.getCodGenero() == Genero.FEMININO && c.isEleito()) eleitosFemininos++;
         }
-        System.out.println("Feminino: " + eleitosFemininos + " (" + df.format((double) eleitosFemininos / (eleitosFemininos + eleitosMasculinos) * 100) + "%)");
-        System.out.println("Masculino: " + eleitosMasculinos + " (" + df.format((double) eleitosMasculinos / (eleitosFemininos + eleitosMasculinos) * 100) + "%)\n");
+        System.out.println("Feminino: " + eleitosFemininos + " (" + (eleitosFemininos + eleitosMasculinos == 0 ? "0" : 
+                                                    df.format((double) eleitosFemininos / (eleitosFemininos + eleitosMasculinos) * 100)) + "%)");
+        System.out.println("Masculino: " + eleitosMasculinos + " (" + (eleitosFemininos + eleitosMasculinos == 0 ? "0" : 
+                                                    df.format((double) eleitosMasculinos / (eleitosFemininos + eleitosMasculinos) * 100)) + "%)\n");
     }
 
     //Relatorio 10
@@ -161,7 +163,7 @@ public class Relatorio {
         }
         votosValidos = votosLegenda + votosNominais;
         System.out.println("Total de votos válidos: " + nf.format(votosValidos));
-        System.out.println("Total de votos nominais: " + nf.format(votosNominais) + " (" + df.format((double) votosNominais / votosValidos * 100) + "%)");
-        System.out.println("Total de votos de legenda: " + nf.format(votosLegenda) + " (" + df.format((double) votosLegenda / votosValidos * 100) + "%)");
+        System.out.println("Total de votos nominais: " + nf.format(votosNominais) + " (" + (votosValidos == 0 ? "0" : df.format((double) votosNominais / votosValidos * 100)) + "%)");
+        System.out.println("Total de votos de legenda: " + nf.format(votosLegenda) + " (" + (votosValidos == 0 ? "0" : df.format((double) votosLegenda / votosValidos * 100)) + "%)");
     }
 }
