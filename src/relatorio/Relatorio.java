@@ -88,9 +88,28 @@ public class Relatorio {
         Collections.sort(partidosList, new VotoPartidoComparator());
         int i = 1;
         for (Partido p : partidosList) {
-            System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " votos " + "(" + 
-                        nf.format(p.getVotosNominais()) + " nominais e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
-                        nf.format(p.getEleitos()) + " candidatos eleitos");
+            if((p.getTotalVotos() == 0) || p.getTotalVotos() == 1){
+                System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " voto " + "(" + 
+                            nf.format(p.getVotosNominais()) + " nominal e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
+                            nf.format(p.getEleitos()) + " candidato eleito");
+            }else if(((p.getVotosNominais() == 0) || (p.getVotosNominais() == 1))&&(p.getEleitos() < 2)){
+                System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " votos " + "(" + 
+                            nf.format(p.getVotosNominais()) + " nominal e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
+                            nf.format(p.getEleitos()) + " candidato eleito");
+            }else if(((p.getVotosNominais() == 0) || (p.getVotosNominais() == 1))&&(p.getEleitos() >= 2)){
+                System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " votos " + "(" + 
+                            nf.format(p.getVotosNominais()) + " nominal e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
+                            nf.format(p.getEleitos()) + " candidatos eleitos");
+            }else if(p.getEleitos() < 2){
+                System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " votos " + "(" + 
+                            nf.format(p.getVotosNominais()) + " nominais e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
+                            nf.format(p.getEleitos()) + " candidato eleito");
+            }
+            else{
+                System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " votos " + "(" + 
+                            nf.format(p.getVotosNominais()) + " nominais e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
+                            nf.format(p.getEleitos()) + " candidatos eleitos");
+            }
             i++;
         }
     }
@@ -103,9 +122,15 @@ public class Relatorio {
             if (p.haCandidatoCadastrado()) {
                 Candidato maisVotado = p.getCandidatoMaisVotado();
                 Candidato menosVotado = p.getCandidatoMenosVotado();
-                System.out.println(i + " - " + p.getSiglaPartido() + " - " + p.getNumPartido() + " " + maisVotado.getNomeUrna() + 
-                                    "(" + maisVotado.getNumCandidato() + ", " + nf.format(maisVotado.getQtdVotosNominal()) + " votos)" + " / " + 
-                                    menosVotado.getNomeUrna() + "(" + menosVotado.getNumCandidato() + ", " + nf.format(menosVotado.getQtdVotosNominal()) + " votos)");
+                if(menosVotado.getQtdVotosNominal() < 2){
+                    System.out.println(i + " - " + p.getSiglaPartido() + " - " + p.getNumPartido() + ", " + maisVotado.getNomeUrna() + 
+                                        "(" + maisVotado.getNumCandidato() + ", " + nf.format(maisVotado.getQtdVotosNominal()) + " votos)" + " / " + 
+                                        menosVotado.getNomeUrna() + "(" + menosVotado.getNumCandidato() + ", " + nf.format(menosVotado.getQtdVotosNominal()) + " voto)");
+                }else{
+                    System.out.println(i + " - " + p.getSiglaPartido() + " - " + p.getNumPartido() + ", " + maisVotado.getNomeUrna() + 
+                                        "(" + maisVotado.getNumCandidato() + ", " + nf.format(maisVotado.getQtdVotosNominal()) + " votos)" + " / " + 
+                                        menosVotado.getNomeUrna() + "(" + menosVotado.getNumCandidato() + ", " + nf.format(menosVotado.getQtdVotosNominal()) + " votos)");
+                }
                 i++;
             }
         }
@@ -131,11 +156,11 @@ public class Relatorio {
                 }
             }
         }
-        System.out.println("      Idade < 30: " + contMenor30 + " (" + (eleitos == 0 ? "0" : df.format((double) contMenor30 / eleitos * 100)) + "%)");
-        System.out.println("30 <= Idade < 40: " + cont30a39 + " (" + (eleitos == 0 ? "0" : df.format((double) cont30a39 / eleitos * 100)) + "%)");
-        System.out.println("40 <= Idade < 50: " + cont40a49 + " (" + (eleitos == 0 ? "0" : df.format((double) cont40a49 / eleitos * 100)) + "%)");
-        System.out.println("50 <= Idade < 60: " + cont50a59 + " (" + (eleitos == 0 ? "0" : df.format((double) cont50a59 / eleitos * 100)) + "%)");
-        System.out.println("60 <= Idade\t: " + cont60 + " (" + (eleitos == 0 ? "0" : df.format((double) cont60 / eleitos * 100)) + "%)");
+        System.out.println("      Idade < 30: " + contMenor30 + " (" + df.format((double) contMenor30 / eleitos * 100) + "%)");
+        System.out.println("30 <= Idade < 40: " + cont30a39 + " (" + df.format((double) cont30a39 / eleitos * 100) + "%)");
+        System.out.println("40 <= Idade < 50: " + cont40a49 + " (" + df.format((double) cont40a49 / eleitos * 100) + "%)");
+        System.out.println("50 <= Idade < 60: " + cont50a59 + " (" + df.format((double) cont50a59 / eleitos * 100) + "%)");
+        System.out.println("60 <= Idade\t: " + cont60 + " (" + df.format((double) cont60 / eleitos * 100) + "%)");
     }
 
     //Relatorio 9
@@ -146,10 +171,8 @@ public class Relatorio {
             if (c.getCodGenero() == Genero.MASCULINO && c.isEleito()) eleitosMasculinos++;
             else if (c.getCodGenero() == Genero.FEMININO && c.isEleito()) eleitosFemininos++;
         }
-        System.out.println("Feminino: " + eleitosFemininos + " (" + (eleitosFemininos + eleitosMasculinos == 0 ? "0" : 
-                                                    df.format((double) eleitosFemininos / (eleitosFemininos + eleitosMasculinos) * 100)) + "%)");
-        System.out.println("Masculino: " + eleitosMasculinos + " (" + (eleitosFemininos + eleitosMasculinos == 0 ? "0" : 
-                                                    df.format((double) eleitosMasculinos / (eleitosFemininos + eleitosMasculinos) * 100)) + "%)\n");
+        System.out.println("Feminino: " + eleitosFemininos + " (" + df.format((double) eleitosFemininos / (eleitosFemininos + eleitosMasculinos) * 100) + "%)");
+        System.out.println("Masculino: " + eleitosMasculinos + " (" + df.format((double) eleitosMasculinos / (eleitosFemininos + eleitosMasculinos) * 100) + "%)\n");
     }
 
     //Relatorio 10
@@ -163,7 +186,7 @@ public class Relatorio {
         }
         votosValidos = votosLegenda + votosNominais;
         System.out.println("Total de votos válidos: " + nf.format(votosValidos));
-        System.out.println("Total de votos nominais: " + nf.format(votosNominais) + " (" + (votosValidos == 0 ? "0" : df.format((double) votosNominais / votosValidos * 100)) + "%)");
-        System.out.println("Total de votos de legenda: " + nf.format(votosLegenda) + " (" + (votosValidos == 0 ? "0" : df.format((double) votosLegenda / votosValidos * 100)) + "%)");
+        System.out.println("Total de votos nominais: " + nf.format(votosNominais) + " (" + df.format((double) votosNominais / votosValidos * 100) + "%)");
+        System.out.println("Total de votos de legenda: " + nf.format(votosLegenda) + " (" + df.format((double) votosLegenda / votosValidos * 100) + "%)");
     }
 }
