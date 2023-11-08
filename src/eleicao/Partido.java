@@ -61,9 +61,9 @@ public class Partido {
     public Candidato getCandidatoMenosVotado() {
         Candidato menosVotado = null;
         for (Candidato c : candidatos.values()) {
-            if (menosVotado == null || c.getQtdVotosNominal() < menosVotado.getQtdVotosNominal())
+            if ((menosVotado == null || c.getQtdVotosNominal() < menosVotado.getQtdVotosNominal()) && (c.getCodSituacaoCandidato() == 2 || c.getCodSituacaoCandidato() == 16))
                 menosVotado = c;
-            else if(c.getQtdVotosNominal() == menosVotado.getQtdVotosNominal() && menosVotado.getDataNascimento().compareTo(c.getDataNascimento()) < 0)
+            else if(c.getQtdVotosNominal() == menosVotado.getQtdVotosNominal() && menosVotado.getDataNascimento().compareTo(c.getDataNascimento()) < 0 && (c.getCodSituacaoCandidato() == 2 || c.getCodSituacaoCandidato() == 16))
                 menosVotado = c;
         }
         return menosVotado;
