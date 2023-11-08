@@ -58,7 +58,7 @@ public class App {
 
             relatorio.totalVotosValidos();
         } catch (NullPointerException e) {
-            System.err.println("Erro ao gerar relatório. Certifique-se de fornecer os arquivos corretos.");
+            System.err.println("Erro ao gerar os relatórios. Certifique-se de fornecer os arquivos corretos.");
         }
     }
 }

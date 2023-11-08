@@ -88,28 +88,11 @@ public class Relatorio {
         Collections.sort(partidosList, new VotoPartidoComparator());
         int i = 1;
         for (Partido p : partidosList) {
-            if((p.getTotalVotos() == 0) || p.getTotalVotos() == 1){
-                System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " voto " + "(" + 
-                            nf.format(p.getVotosNominais()) + " nominal e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
-                            nf.format(p.getEleitos()) + " candidato eleito");
-            }else if(((p.getVotosNominais() == 0) || (p.getVotosNominais() == 1))&&(p.getEleitos() < 2)){
-                System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " votos " + "(" + 
-                            nf.format(p.getVotosNominais()) + " nominal e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
-                            nf.format(p.getEleitos()) + " candidato eleito");
-            }else if(((p.getVotosNominais() == 0) || (p.getVotosNominais() == 1))&&(p.getEleitos() >= 2)){
-                System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " votos " + "(" + 
-                            nf.format(p.getVotosNominais()) + " nominal e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
-                            nf.format(p.getEleitos()) + " candidatos eleitos");
-            }else if(p.getEleitos() < 2){
-                System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " votos " + "(" + 
-                            nf.format(p.getVotosNominais()) + " nominais e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
-                            nf.format(p.getEleitos()) + " candidato eleito");
-            }
-            else{
-                System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " votos " + "(" + 
-                            nf.format(p.getVotosNominais()) + " nominais e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
-                            nf.format(p.getEleitos()) + " candidatos eleitos");
-            }
+            System.out.println(i + " - " + p + ", " + nf.format(p.getTotalVotos()) + " voto" + (p.getTotalVotos() > 1 ? "s" : "") + 
+                                        " (" + nf.format(p.getVotosNominais()) + " nomina" + (p.getVotosNominais() > 1 ? "is" : "l") + 
+                                        " e " + nf.format(p.getQtdVotosLegenda()) + " de legenda), " + 
+                                        nf.format(p.getEleitos()) + " candidato" + (p.getEleitos() > 1 ? "s" : "") + 
+                                        " eleito" + (p.getEleitos() > 1 ? "s" : ""));
             i++;
         }
     }
