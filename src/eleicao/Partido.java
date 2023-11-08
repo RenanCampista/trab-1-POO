@@ -63,6 +63,8 @@ public class Partido {
         for (Candidato c : candidatos.values()) {
             if (menosVotado == null || c.getQtdVotosNominal() < menosVotado.getQtdVotosNominal())
                 menosVotado = c;
+            else if(c.getQtdVotosNominal() == menosVotado.getQtdVotosNominal() && menosVotado.getDataNascimento().compareTo(c.getDataNascimento()) < 0)
+                menosVotado = c;
         }
         return menosVotado;
     }
